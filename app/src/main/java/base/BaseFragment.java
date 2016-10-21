@@ -13,6 +13,12 @@ import lanou.carhometwo.R;
  * Created by dllo on 16/10/21.
  */
 public abstract class BaseFragment extends Fragment {
+//    Context context;
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//        this.context = context;
+//    }
 
     @Nullable
     @Override
@@ -26,7 +32,8 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        initView();
+
+//        initView();
         initData();
     }
 
@@ -36,12 +43,12 @@ public abstract class BaseFragment extends Fragment {
         initData();
     }
 
-    protected <T extends View> T bindView(int id){
+    protected <T extends View> T bindView(int id) {
         return (T) getView().findViewById(id);
     }
 
     //指定在哪个 View里findViewById
-    protected <T extends View> T bindView(View view,int id){
+    protected <T extends View> T bindView(View view, int id) {
         return (T) view.findViewById(id);
     }
 

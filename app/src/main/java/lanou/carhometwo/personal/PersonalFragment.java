@@ -7,6 +7,7 @@ import lanou.carhometwo.R;
  * Created by dllo on 16/10/21.
  */
 public class PersonalFragment extends BaseFragment{
+
     @Override
     protected void initData() {
 

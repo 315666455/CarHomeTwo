@@ -57,6 +57,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         switch (view.getId()) {
             case R.id.img_main_recommended:
                 transaction.replace(R.id.fl_main, new RecommendedFragment());
+
                 break;
             case R.id.img_main_bbs:
                 transaction.replace(R.id.fl_main, new BbsFragment());
