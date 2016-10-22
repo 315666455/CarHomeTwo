@@ -4,10 +4,10 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.view.View;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
+import android.widget.RadioButton;
 
-import base.BaseActivity;
 import lanou.carhometwo.R;
+import lanou.carhometwo.base.BaseActivity;
 import lanou.carhometwo.bbs.BbsFragment;
 import lanou.carhometwo.choosecar.ChooseCarFragment;
 import lanou.carhometwo.found.FoundFragment;
@@ -17,11 +17,11 @@ import lanou.carhometwo.recommended.RecommendedFragment;
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     FrameLayout fl_main;
-    ImageView imgRecommended;
-    ImageView imgBbs;
-    ImageView imgChooseCar;
-    ImageView imgFound;
-    ImageView imgPersonal;
+    RadioButton rbRecommended;
+    RadioButton rbBbs;
+    RadioButton rbChooseCar;
+    RadioButton rbFound;
+    RadioButton rbPersonal;
     private FragmentTransaction transaction;
 
     @Override
@@ -32,45 +32,50 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
     @Override
     protected void initViews() {
         fl_main = (FrameLayout) findViewById(R.id.fl_main);
-        imgRecommended = (ImageView) findViewById(R.id.img_main_recommended);
-        imgBbs = (ImageView) findViewById(R.id.img_main_bbs);
-        imgChooseCar = (ImageView) findViewById(R.id.img_main_choosecar);
-        imgFound = (ImageView) findViewById(R.id.img_main_found);
-        imgPersonal = (ImageView) findViewById(R.id.img_main_personal);
-        setClick(this, imgRecommended);
-        setClick(this, imgBbs);
-        setClick(this, imgChooseCar);
-        setClick(this, imgFound);
-        setClick(this, imgPersonal);
-    }
+        rbRecommended = (RadioButton) findViewById(R.id.rb_main_recommended);
+        rbBbs = (RadioButton) findViewById(R.id.rb_main_bbs);
+        rbChooseCar = (RadioButton) findViewById(R.id.rb_main_choose_car);
+        rbFound = (RadioButton) findViewById(R.id.rb_main_found);
+        rbPersonal = (RadioButton) findViewById(R.id.rb_main_personal);
+        setClick(this, rbRecommended);
+        setClick(this, rbBbs);
+        setClick(this, rbChooseCar);
+        setClick(this, rbFound);
+        setClick(this, rbPersonal);
 
-    @Override
-    protected void initData() {
         FragmentManager manager = getSupportFragmentManager();
         transaction = manager.beginTransaction();
         transaction.replace(R.id.fl_main, new RecommendedFragment());
         transaction.commit();
+
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
     @Override
     public void onClick(View view) {
+        FragmentManager manager = getSupportFragmentManager();
+        transaction = manager.beginTransaction();
         switch (view.getId()) {
-            case R.id.img_main_recommended:
+            case R.id.rb_main_recommended:
                 transaction.replace(R.id.fl_main, new RecommendedFragment());
-
                 break;
-            case R.id.img_main_bbs:
+            case R.id.rb_main_bbs:
                 transaction.replace(R.id.fl_main, new BbsFragment());
                 break;
-            case R.id.img_main_choosecar:
+            case R.id.rb_main_choose_car:
                 transaction.replace(R.id.fl_main, new ChooseCarFragment());
                 break;
-            case R.id.img_main_found:
+            case R.id.rb_main_found:
                 transaction.replace(R.id.fl_main, new FoundFragment());
                 break;
-            case R.id.img_main_personal:
+            case R.id.rb_main_personal:
                 transaction.replace(R.id.fl_main, new PersonalFragment());
                 break;
         }
+        transaction.commit();
     }
 }

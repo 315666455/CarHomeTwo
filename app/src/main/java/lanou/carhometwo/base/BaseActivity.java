@@ -1,4 +1,4 @@
-package base;
+package lanou.carhometwo.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 /**
- * Created by dllo on 16/10/21.
+ * Created by dllo on 16/10/22.
  */
 public abstract class BaseActivity extends AppCompatActivity {
 

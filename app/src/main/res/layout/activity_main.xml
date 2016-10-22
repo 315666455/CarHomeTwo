@@ -10,48 +10,79 @@
         android:id="@+id/fl_main"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="13" />
+        android:layout_weight="9" />
 
-    <LinearLayout
+
+    <RadioGroup
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/img_main_recommended"
+        <RadioButton
+            android:id="@+id/rb_main_recommended"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@mipmap/tuijian3" />
+            android:button="@null"
+            android:checked="true"
+            android:drawableTop="@drawable/recommended_changed"
+            android:gravity="center"
+            android:text="推荐"/>
 
-        <ImageView
-            android:id="@+id/img_main_bbs"
+
+
+        <RadioButton
+            android:id="@+id/rb_main_bbs"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@mipmap/luntan3" />
+            android:button="@null"
+            android:checked="true"
+            android:drawableTop="@drawable/bbs_changed"
+            android:gravity="center"
+            android:text="论坛"/>
 
-        <ImageView
-            android:id="@+id/img_main_choosecar"
+
+
+        <RadioButton
+            android:id="@+id/rb_main_choose_car"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@mipmap/xuanche3" />
+            android:button="@null"
+            android:checked="true"
+            android:drawableTop="@drawable/choose_car_changed"
+            android:gravity="center"
+            android:text="选车"/>
 
-        <ImageView
-            android:id="@+id/img_main_found"
+
+
+        <RadioButton
+            android:id="@+id/rb_main_found"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@mipmap/faxian3" />
+            android:button="@null"
+            android:checked="true"
+            android:drawableTop="@drawable/found_changed"
+            android:gravity="center"
+            android:text="发现"/>
 
-        <ImageView
-            android:id="@+id/img_main_personal"
+
+        <RadioButton
+            android:id="@+id/rb_main_personal"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:src="@mipmap/wo3" />
-    </LinearLayout>
+            android:button="@null"
+            android:checked="true"
+            android:drawableTop="@drawable/personal_changed"
+            android:gravity="center"
+            android:text="个人"    />
 
+
+
+    </RadioGroup>
 
 </LinearLayout>

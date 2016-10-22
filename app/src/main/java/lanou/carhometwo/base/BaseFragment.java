@@ -1,4 +1,4 @@
-package base;
+package lanou.carhometwo.base;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,16 +10,9 @@ import android.view.ViewGroup;
 import lanou.carhometwo.R;
 
 /**
- * Created by dllo on 16/10/21.
+ * Created by dllo on 16/10/22.
  */
 public abstract class BaseFragment extends Fragment {
-//    Context context;
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        this.context = context;
-//    }
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -57,4 +50,5 @@ public abstract class BaseFragment extends Fragment {
     protected abstract void initView();
 
     protected abstract int getLayout();
+
 }
