@@ -4,4 +4,6 @@
     <item android:drawable="@mipmap/nav_icon_article_p" android:state_focused="true" />
     <item android:drawable="@mipmap/nav_icon_article_p" android:state_checked="true" />
     <item android:drawable="@mipmap/nav_icon_article_f" />
+
+
 </selector>

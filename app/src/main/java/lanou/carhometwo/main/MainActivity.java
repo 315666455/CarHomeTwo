@@ -47,7 +47,6 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         transaction = manager.beginTransaction();
         transaction.replace(R.id.fl_main, new RecommendedFragment());
         transaction.commit();
-
     }
 
     @Override
