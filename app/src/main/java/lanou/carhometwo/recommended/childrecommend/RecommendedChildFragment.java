@@ -22,6 +22,4 @@ public class RecommendedChildFragment extends lanou.carhometwo.base.BaseFragment
     protected int getLayout() {
         return R.layout.recommended_child_fragment;
     }
-
-
 }

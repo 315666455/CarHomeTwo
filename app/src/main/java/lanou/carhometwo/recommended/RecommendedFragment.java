@@ -58,6 +58,4 @@ public class RecommendedFragment extends BaseFragment {
     protected int getLayout() {
         return R.layout.recommended_fragment;
     }
-
-
 }

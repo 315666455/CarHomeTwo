@@ -9,8 +9,11 @@ import lanou.carhometwo.base.BaseFragment;
 public class MarketFragment extends BaseFragment {
 
 
+
     @Override
     protected void initData() {
+
+
 
     }
 
