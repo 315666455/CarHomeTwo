@@ -13,7 +13,11 @@ import lanou.carhometwo.base.BaseFragment;
  */
 public class RecommendedAdapter extends FragmentPagerAdapter {
 
+
+
     ArrayList<BaseFragment>arrayList;
+
+
 
     public void setArrayList(ArrayList<BaseFragment> arrayList) {
         this.arrayList = arrayList;

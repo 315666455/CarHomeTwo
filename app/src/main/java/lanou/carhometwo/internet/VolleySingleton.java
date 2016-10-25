@@ -7,6 +7,8 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
+import lanou.carhometwo.R;
+
 /**
  * Created by dllo on 16/10/24.
  */
@@ -44,6 +46,6 @@ public class VolleySingleton {
 
     //请求图片
     public void getImage(String url, ImageView imageView) {
-        imageLoader.get(url, imageLoader.getImageListener(imageView, 0, 0));
+        imageLoader.get(url, imageLoader.getImageListener(imageView, R.mipmap.ic_launcher, R.mipmap.ic_launcher));
     }
 }
