@@ -54,6 +54,7 @@ public class RecommendedChildFragment extends BaseFragment {
             public void onResponse(RecommendChildBean response) {
 
                 imgArr = new ArrayList<>();
+
                 for (int i = 0; i < 6; i++) {
                     String imgUrl = response.getResult().getFocusimg().get(i).getImgurl();
                     imgArr.add(imgUrl);
@@ -65,7 +66,7 @@ public class RecommendedChildFragment extends BaseFragment {
                 for (int i = 0; i < imgArr.size(); i++) {
 
                     view = new View(getContext());
-                    params = new LinearLayout.LayoutParams(15, 15);
+                    params = new LinearLayout.LayoutParams(10,10);
                     params.leftMargin = 10;
                     view.setBackgroundResource(R.drawable.shapebackground);
                     view.setLayoutParams(params);
@@ -91,10 +92,12 @@ public class RecommendedChildFragment extends BaseFragment {
 
         lvRecommendedChild = bindView(R.id.lv_recommend_child);
         View view = LayoutInflater.from(getActivity()).inflate(R.layout.shuffling, null);
+
         mTextView = bindView(view, R.id.tv_bannertext);
         mViewPager = bindView(view, R.id.vp_shuffling);
         llShuffing = bindView(view, R.id.ll_shuffling_points);
         lvRecommendedChild.addHeaderView(view);
+
         RecommendedChildAdapter adapter = new RecommendedChildAdapter(context);
         lvRecommendedChild.setAdapter(adapter);
     }
