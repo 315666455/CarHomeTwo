@@ -1,7 +1,11 @@
 package lanou.carhometwo.recommended.childrecommend;
 
 import android.content.Context;
-import android.os.SystemClock;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
+import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -44,6 +48,25 @@ public class RecommendedChildFragment extends BaseFragment {
     private int pointIndex = 0;
     private boolean isStop = false;
     private ArrayList<String> imgArr;
+    private int wheelSize;
+    private Handler mHandler;
+
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mHandler = new Handler(Looper.myLooper()){
+
+            @Override
+            public void handleMessage(Message msg) {
+                super.handleMessage(msg);
+                if (msg.what == 1 && vpShuffing!= null){
+                    vpShuffing.setCurrentItem(vpShuffing.getCurrentItem() + 1);
+                }
+                sendEmptyMessageDelayed(1,3000);
+            }
+        };
+    }
 
     @Override
     protected void initData() {
@@ -55,7 +78,9 @@ public class RecommendedChildFragment extends BaseFragment {
 
                 imgArr = new ArrayList<>();
 
-                for (int i = 0; i < 6; i++) {
+                wheelSize = response.getResult().getFocusimg().size();
+
+                for (int i = 0; i < wheelSize; i++) {
                     String imgUrl = response.getResult().getFocusimg().get(i).getImgurl();
                     imgArr.add(imgUrl);
                 }
@@ -66,7 +91,7 @@ public class RecommendedChildFragment extends BaseFragment {
                 for (int i = 0; i < imgArr.size(); i++) {
 
                     view = new View(getContext());
-                    params = new LinearLayout.LayoutParams(10,10);
+                    params = new LinearLayout.LayoutParams(10, 10);
                     params.leftMargin = 10;
                     view.setBackgroundResource(R.drawable.shapebackground);
                     view.setLayoutParams(params);
@@ -85,6 +110,7 @@ public class RecommendedChildFragment extends BaseFragment {
         });
 
         VolleySingleton.getInstance().addRequest(gsonRequset);
+
     }
 
     @Override
@@ -100,6 +126,7 @@ public class RecommendedChildFragment extends BaseFragment {
 
         RecommendedChildAdapter adapter = new RecommendedChildAdapter(context);
         lvRecommendedChild.setAdapter(adapter);
+        mHandler.sendEmptyMessage(1);
     }
 
     private void initAction() {
@@ -111,20 +138,20 @@ public class RecommendedChildFragment extends BaseFragment {
 
         llShuffing.getChildAt(pointIndex).setEnabled(true);//dian
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (!isStop) {
-                    SystemClock.sleep(3000);
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
-                        }
-                    });
-                }
-            }
-        }).start();
+//        new Thread(new Runnable() {
+//            @Override
+//            public void run() {
+//                while (!isStop) {
+//                    SystemClock.sleep(3000);
+//                    getActivity().runOnUiThread(new Runnable() {
+//                        @Override
+//                        public void run() {
+//                            mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
+//                        }
+//                    });
+//                }
+//            }
+//        }).start();
     }
 
     @Override
@@ -138,10 +165,16 @@ public class RecommendedChildFragment extends BaseFragment {
         this.context = context;
     }
 
+//    @Override
+//    public void onDestroy() {
+//        isStop = true;
+//        super.onDestroy();
+//    }
+
     @Override
-    public void onDestroy() {
-        isStop = true;
-        super.onDestroy();
+    public void onDestroyView() {
+        super.onDestroyView();
+        mHandler.removeMessages(1);
     }
 
     class BannerListener implements ViewPager.OnPageChangeListener {
@@ -156,12 +189,10 @@ public class RecommendedChildFragment extends BaseFragment {
 
         @Override
         public void onPageSelected(final int position) {
-            bannerTexts = new String[]{
-                    " ", " ", " ", " ", " ", " "
-            };
-            if (bannerTexts.length != 0) {
-                int newPosition = position % bannerTexts.length;
-                mTextView.setText(bannerTexts[newPosition]);
+
+            if (wheelSize != 0) {
+                int newPosition = position % wheelSize;
+                mTextView.setText("");
                 llShuffing.getChildAt(newPosition).setEnabled(true);
                 llShuffing.getChildAt(pointIndex).setEnabled(false);
                 pointIndex = newPosition;
