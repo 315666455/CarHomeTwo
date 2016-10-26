@@ -1,11 +1,7 @@
 package lanou.carhometwo.recommended.childrecommend;
 
 import android.content.Context;
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Looper;
-import android.os.Message;
-import android.support.annotation.Nullable;
+import android.os.SystemClock;
 import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -49,24 +45,24 @@ public class RecommendedChildFragment extends BaseFragment {
     private boolean isStop = false;
     private ArrayList<String> imgArr;
     private int wheelSize;
-    private Handler mHandler;
+//    private Handler mHandler;
 
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mHandler = new Handler(Looper.myLooper()){
-
-            @Override
-            public void handleMessage(Message msg) {
-                super.handleMessage(msg);
-                if (msg.what == 1 && vpShuffing!= null){
-                    vpShuffing.setCurrentItem(vpShuffing.getCurrentItem() + 1);
-                }
-                sendEmptyMessageDelayed(1,3000);
-            }
-        };
-    }
+//    @Override
+//    public void onCreate(@Nullable Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        mHandler = new Handler(Looper.myLooper()){
+//
+//            @Override
+//            public void handleMessage(Message msg) {
+//                super.handleMessage(msg);
+//                if (msg.what == 1 && vpShuffing!= null){
+//                    vpShuffing.setCurrentItem(vpShuffing.getCurrentItem() + 1);
+//                }
+//                sendEmptyMessageDelayed(1,3000);
+//            }
+//        };
+//    }
 
     @Override
     protected void initData() {
@@ -126,7 +122,7 @@ public class RecommendedChildFragment extends BaseFragment {
 
         RecommendedChildAdapter adapter = new RecommendedChildAdapter(context);
         lvRecommendedChild.setAdapter(adapter);
-        mHandler.sendEmptyMessage(1);
+//        mHandler.sendEmptyMessage(1);
     }
 
     private void initAction() {
@@ -138,20 +134,20 @@ public class RecommendedChildFragment extends BaseFragment {
 
         llShuffing.getChildAt(pointIndex).setEnabled(true);//dian
 
-//        new Thread(new Runnable() {
-//            @Override
-//            public void run() {
-//                while (!isStop) {
-//                    SystemClock.sleep(3000);
-//                    getActivity().runOnUiThread(new Runnable() {
-//                        @Override
-//                        public void run() {
-//                            mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
-//                        }
-//                    });
-//                }
-//            }
-//        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                while (!isStop) {
+                    SystemClock.sleep(3000);
+                    getActivity().runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            mViewPager.setCurrentItem(mViewPager.getCurrentItem() + 1);
+                        }
+                    });
+                }
+            }
+        }).start();
     }
 
     @Override
@@ -165,17 +161,18 @@ public class RecommendedChildFragment extends BaseFragment {
         this.context = context;
     }
 
-//    @Override
-//    public void onDestroy() {
-//        isStop = true;
-//        super.onDestroy();
-//    }
-
     @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        mHandler.removeMessages(1);
+    public void onDestroy() {
+        isStop = true;
+        super.onDestroy();
     }
+
+//    @Override
+//    public void onDestroyView() {
+//        mHandler.removeMessages (1);
+//        super.onDestroyView();
+//
+//    }
 
     class BannerListener implements ViewPager.OnPageChangeListener {
 

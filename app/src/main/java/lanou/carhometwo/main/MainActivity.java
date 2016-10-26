@@ -42,16 +42,14 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         setClick(this, rbChooseCar);
         setClick(this, rbFound);
         setClick(this, rbPersonal);
-
-        FragmentManager manager = getSupportFragmentManager();
-        transaction = manager.beginTransaction();
-        transaction.replace(R.id.fl_main, new RecommendedFragment());
-        transaction.commit();
     }
 
     @Override
     protected void initData() {
-
+        FragmentManager manager = getSupportFragmentManager();
+        transaction = manager.beginTransaction();
+        transaction.replace(R.id.fl_main, new RecommendedFragment());
+        transaction.commit();
     }
 
     @Override
