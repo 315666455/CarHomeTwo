@@ -1,4 +1,4 @@
-package lanou.carhometwo.welcomepage;
+package lanou.carhometwo.bean;
 
 /**
  * Created by dllo on 16/10/24.

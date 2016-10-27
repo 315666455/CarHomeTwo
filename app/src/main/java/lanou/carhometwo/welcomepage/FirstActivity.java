@@ -12,6 +12,7 @@ import com.android.volley.VolleyError;
 
 import lanou.carhometwo.R;
 import lanou.carhometwo.base.BaseActivity;
+import lanou.carhometwo.bean.FirstBean;
 import lanou.carhometwo.internet.GsonRequset;
 import lanou.carhometwo.internet.VolleySingleton;
 import lanou.carhometwo.main.MainActivity;
@@ -43,6 +44,7 @@ public class FirstActivity extends BaseActivity {
         });
     }
 
+
     @Override
     protected void initData() {
 
@@ -51,6 +53,7 @@ public class FirstActivity extends BaseActivity {
             public void onResponse(FirstBean response) {
 
                 String imgUrlFront = response.getResult().getAd().getImgad().getImgurl();
+
                 VolleySingleton.getInstance().getImage(imgUrlFront, imgFirst);
                 int showTime = response.getResult().getAd().getShowtime();
 

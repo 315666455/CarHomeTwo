@@ -24,7 +24,7 @@
         android:layout_weight="2.6"
         android:orientation="vertical">
 
-        <lanou.carhometwo.main.CircleHead
+        <lanou.carhometwo.weiget.CircleHead
             android:layout_width="85dp"
             android:layout_height="85dp"
             android:layout_gravity="center_horizontal"

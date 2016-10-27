@@ -1,4 +1,4 @@
-package lanou.carhometwo.main;
+package lanou.carhometwo.weiget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -10,7 +10,6 @@ import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.widget.ImageView;
 
 import lanou.carhometwo.R;
@@ -28,7 +27,6 @@ public class CircleHead extends ImageView {
 
         TypedArray array = context.obtainStyledAttributes(attrs, R.styleable.CircleHead);
         isCircle = array.getBoolean(R.styleable.CircleHead_isCircle, false);
-        Log.d("CircleImageView", "isCircle:" + isCircle);
 
     }
 

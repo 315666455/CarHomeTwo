@@ -1,4 +1,4 @@
-package lanou.carhometwo.recommended.childrecommend;
+package lanou.carhometwo.bean;
 
 import java.util.List;
 

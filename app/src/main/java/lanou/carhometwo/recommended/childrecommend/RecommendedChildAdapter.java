@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import java.util.ArrayList;
 
 import lanou.carhometwo.R;
+import lanou.carhometwo.bean.RecommendChildBean;
 
 /**
  * Created by dllo on 16/10/25.

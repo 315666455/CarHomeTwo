@@ -2,7 +2,7 @@ package lanou.carhometwo.recommended;
 
 
 import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
+import android.support.v4.view.*;
 
 import lanou.carhometwo.R;
 import lanou.carhometwo.base.BaseFragment;
@@ -18,27 +18,10 @@ public class RecommendedFragment extends BaseFragment {
     @Override
     protected void initData() {
 
-        RecommendedAdapter adapter = new RecommendedAdapter(getFragmentManager());
-//        ArrayList<BaseFragment> arrayList = new ArrayList<>();
-//
-//        arrayList.add(new RecommendedChildFragment());
-//        arrayList.add(new GoodWorkFragment());
-//        arrayList.add(new LobbyistsFragment());
-//        arrayList.add(new VideoFragment());
-//        arrayList.add(new LettersFragment());
-//        arrayList.add(new MarketFragment());
-//
-//        adapter.setArrayList(arrayList);
+        RecommendedAdapter adapter = new RecommendedAdapter(getChildFragmentManager());
+
         vpRecommended.setAdapter(adapter);
         tlRecommended.setupWithViewPager(vpRecommended);
-
-//        tlRecommended.getTabAt(0).setText("推荐");
-//        tlRecommended.getTabAt(1).setText("优创+");
-//        tlRecommended.getTabAt(2).setText("说客");
-//        tlRecommended.getTabAt(3).setText("视频");
-//        tlRecommended.getTabAt(4).setText("快报");
-//        tlRecommended.getTabAt(5).setText("行情");
-
         tlRecommended.setTabMode(TabLayout.MODE_SCROLLABLE);
     }
 

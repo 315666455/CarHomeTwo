@@ -1,7 +1,6 @@
 package lanou.carhometwo.recommended.childrecommend;
 
 import android.support.v4.view.PagerAdapter;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -40,7 +39,7 @@ public class BannerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        //  Log.d("Sysout", "position:" + position);
+
         long startTime = System.currentTimeMillis();
         ImageView imageView = new ImageView(container.getContext());
         imageView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.MATCH_PARENT));
@@ -49,7 +48,7 @@ public class BannerAdapter extends PagerAdapter {
         imageView.setImageResource(R.mipmap.ic_launcher);
         VolleySingleton.getInstance().getImage(img, imageView);
         long endTime = System.currentTimeMillis();
-        Log.d("Sysout", "endTime - startTime:" + (endTime - startTime));
+
         return imageView;
     }
 
