@@ -51,7 +51,7 @@ public class RecommendedChildFragment extends BaseFragment {
     private ArrayList<String> imgArr;
     private int wheelSize;
     private Handler mHandler;
-
+    private RecommendedChildAdapter reAdapter;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,7 +74,7 @@ public class RecommendedChildFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        Log.d(TAG, "initData");
+
 
         GsonRequset<RecommendChildBean> gsonRequset = new GsonRequset<RecommendChildBean>(RecommendChildBean.class, childUrl, new Response.Listener<RecommendChildBean>() {
 
@@ -104,8 +104,15 @@ public class RecommendedChildFragment extends BaseFragment {
                     llShuffing.addView(view);
                 }
 
+                reAdapter = new RecommendedChildAdapter(getActivity());
+
+
+                reAdapter.setRecommendChildBean(response);
+                lvRecommendedChild.setAdapter(reAdapter);
+
                 mAdapter = new BannerAdapter(imgArr);
                 mViewPager.setAdapter(mAdapter);
+
                 initAction();
             }
         }, new Response.ErrorListener() {
@@ -140,7 +147,6 @@ public class RecommendedChildFragment extends BaseFragment {
         mViewPager.addOnPageChangeListener(bannerListener);
         int index = (100 / 2) - (100 / 2 % imgArr.size());
         mViewPager.setCurrentItem(index, false);
-
         llShuffing.getChildAt(pointIndex).setEnabled(true);//dian
     }
 

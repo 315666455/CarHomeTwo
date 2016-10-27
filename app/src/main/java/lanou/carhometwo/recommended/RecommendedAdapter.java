@@ -18,6 +18,8 @@ import lanou.carhometwo.recommended.video.VideoFragment;
  */
 public class RecommendedAdapter extends FragmentPagerAdapter {
 
+
+
     String[] title = {"推荐", "优创+", "说客", "视频", "快报", "行情", "新闻", "评测", "导购", "用车", "技术", "文化", "改装"};
 
 //    String recommandUrl = "http://app.api.autohome.com.cn/autov4.8.8/news/newslist-pm1-c0-nt0-p1-s30-l0.json";
