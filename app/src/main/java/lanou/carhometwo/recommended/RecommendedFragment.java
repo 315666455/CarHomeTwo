@@ -1,8 +1,9 @@
 package lanou.carhometwo.recommended;
 
 
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.*;
+import android.graphics.Color;
+
+import android.support.v4.view.ViewPager;
 
 import lanou.carhometwo.R;
 import lanou.carhometwo.base.BaseFragment;
@@ -22,6 +23,7 @@ public class RecommendedFragment extends BaseFragment {
 
         vpRecommended.setAdapter(adapter);
         tlRecommended.setupWithViewPager(vpRecommended);
+        tlRecommended.setSelectedTabIndicatorColor(Color.BLACK);
         tlRecommended.setTabMode(TabLayout.MODE_SCROLLABLE);
     }
 
