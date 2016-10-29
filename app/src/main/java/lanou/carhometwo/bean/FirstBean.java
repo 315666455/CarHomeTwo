@@ -1,10 +1,14 @@
 package lanou.carhometwo.bean;
 
+import com.litesuits.orm.db.annotation.PrimaryKey;
+import com.litesuits.orm.db.enums.AssignType;
+
 /**
  * Created by dllo on 16/10/24.
  */
 public class FirstBean {
-
+    @PrimaryKey(AssignType.AUTO_INCREMENT)
+    private int id;
     /**
      * returncode : 0
      * message :
