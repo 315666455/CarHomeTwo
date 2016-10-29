@@ -40,8 +40,6 @@ public class RecommendedFragment extends BaseFragment implements View.OnClickLis
             arrayList.add(bean);
         }
         VolleySingleton.getInstance().liteInsert(arrayList);
-
-
     }
 
     @Override
@@ -66,12 +64,9 @@ public class RecommendedFragment extends BaseFragment implements View.OnClickLis
                 VolleySingleton.getInstance().liteQueryDate(new VolleySingleton.OnQueryListenerAll<FirstBean>() {
                     @Override
                     public void onQuery(List<FirstBean> T) {
-
                         Log.d("RecommendedFragment", "T:" + T);
-
                     }
                 },FirstBean.class);
-                
                 break;
         }
     }

@@ -44,8 +44,6 @@ public class GsonRequset<T> extends Request<T> {
         return Response.success(t, HttpHeaderParser.parseCacheHeaders(response));
     }
 
-
-
     @Override
     protected void deliverResponse(T response) {
         mListener.onResponse(response);

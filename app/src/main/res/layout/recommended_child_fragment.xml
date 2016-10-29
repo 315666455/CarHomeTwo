@@ -1,14 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <com.bartoszlipinski.recyclerviewheader.RecyclerViewHeader
+        android:id="@+id/rv_head_recommend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-   <ListView
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:id="@+id/lv_recommend_child"
-       ></ListView>
+            <android.support.v4.view.ViewPager
+                android:id="@+id/vp_shuffling"
+                android:layout_width="match_parent"
+                android:layout_height="200dp" />
 
-</LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/vp_shuffling"
+                android:background="#33000000"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <LinearLayout
+                    android:id="@+id/ll_shuffling_points"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:orientation="horizontal"
+                    android:paddingBottom="10dp" />
+            </LinearLayout>
+    </com.bartoszlipinski.recyclerviewheader.RecyclerViewHeader>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/lv_recommend_child"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>

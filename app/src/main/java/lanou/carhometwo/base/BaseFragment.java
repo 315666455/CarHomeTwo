@@ -39,6 +39,7 @@ public abstract class BaseFragment extends Fragment {
         return (T) getView().findViewById(id);
     }
 
+
     //指定在哪个 View里findViewById
     protected <T extends View> T bindView(View view, int id) {
         return (T) view.findViewById(id);
