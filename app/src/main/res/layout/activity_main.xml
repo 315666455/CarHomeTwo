@@ -64,8 +64,5 @@
             android:button="@null"
             android:drawableTop="@drawable/personal_changed"
             android:gravity="center" />
-
-
     </RadioGroup>
-
 </LinearLayout>

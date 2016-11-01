@@ -30,7 +30,6 @@ public class GsonRequset<T> extends Request<T> {
         this(Method.GET, tClass, url, mListener, listener);
     }
 
-
     @Override
     protected Response<T> parseNetworkResponse(NetworkResponse response) {
 

@@ -54,11 +54,10 @@ public class RecommendedChildAdapter extends RecyclerView.Adapter {
         if (type == 3) {
             VideoViewHolder videoViewHolder = (VideoViewHolder) holder;
             videoViewHolder.tvVideoTitle.setText(recommendChildBean.getResult().getNewslist().get(position).getTitle());
-            videoViewHolder.tvReplycount.setText(String.valueOf(recommendChildBean.getResult().getNewslist().get(position).getReplycount())+"次 播放");
+            videoViewHolder.tvReplycount.setText(String.valueOf(recommendChildBean.getResult().getNewslist().get(position).getReplycount()) + "次 播放");
             videoViewHolder.tvVideoTime.setText(recommendChildBean.getResult().getNewslist().get(position).getTime());
             VolleySingleton.getInstance().getImage(recommendChildBean.getResult().getNewslist().get(position).getSmallpic(), videoViewHolder.imgVideo);
         } else {
-
             NewsViewHolder newsViewHolder = (NewsViewHolder) holder;
             newsViewHolder.tvTitle.setText(recommendChildBean.getResult().getNewslist().get(position).getTitle());
             newsViewHolder.tvTime.setText(recommendChildBean.getResult().getNewslist().get(position).getTime());
@@ -105,6 +104,4 @@ public class RecommendedChildAdapter extends RecyclerView.Adapter {
             tvReplycount = (TextView) itemView.findViewById(R.id.tv_recommend_video_replycount);
         }
     }
-
-
 }

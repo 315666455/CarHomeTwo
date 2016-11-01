@@ -4,70 +4,59 @@ package lanou.carhometwo.recommended;
 import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import lanou.carhometwo.R;
 import lanou.carhometwo.base.BaseFragment;
-import lanou.carhometwo.bean.FirstBean;
-import lanou.carhometwo.internet.VolleySingleton;
+import lanou.carhometwo.recommended.childrecommend.RecommendedChildFragment;
+import lanou.carhometwo.recommended.goodwork.GoodWorkFragment;
 
 
-public class RecommendedFragment extends BaseFragment implements View.OnClickListener {
+public class RecommendedFragment extends BaseFragment {
 
     private TabLayout tlRecommended;
     private ViewPager vpRecommended;
-    private TextView tvMusic;
+//    private ArrayList<String> arrayListUrl;
 
     @Override
     protected void initData() {
 
+//        arrayListUrl = new ArrayList<>();
+//        arrayListUrl.add(URLValues.URL_NEW);
+//        arrayListUrl.add(URLValues.URL_YC);
+//        arrayListUrl.add(URLValues.URL_SAY);
+//        arrayListUrl.add(URLValues.URL_VIEDIO);
+//        arrayListUrl.add(URLValues.URL_QUICK);
+//        arrayListUrl.add(URLValues.URL_MARKET);
+//        arrayListUrl.add(URLValues.URL_NEWS);
+//        arrayListUrl.add(URLValues.URL_TESTCAR);
+//        arrayListUrl.add(URLValues.URL_SHOP);
+//        arrayListUrl.add(URLValues.URL_USECAR);
+//        arrayListUrl.add(URLValues.URL_TECHNOLOGY);
+//        arrayListUrl.add(URLValues.URL_CULTURE);
+//        arrayListUrl.add(URLValues.URL_CHANGE);
+
+//        RecommendedAdapter adapter = new RecommendedAdapter(getChildFragmentManager(),arrayListUrl);
+        ArrayList<BaseFragment>arrayList = new ArrayList<>();
+        arrayList.add(new RecommendedChildFragment());
+        arrayList.add(new GoodWorkFragment());
         RecommendedAdapter adapter = new RecommendedAdapter(getChildFragmentManager());
+        adapter.setArrayList(arrayList);
         vpRecommended.setAdapter(adapter);
         tlRecommended.setupWithViewPager(vpRecommended);
         tlRecommended.setSelectedTabIndicatorColor(Color.BLACK);
         tlRecommended.setTabMode(TabLayout.MODE_SCROLLABLE);
-
-
-        FirstBean bean = new FirstBean();
-        ArrayList<FirstBean> arrayList = new ArrayList<>();
-        for (int i = 0; i < 5; i++) {
-            bean.setMessage("你好");
-            arrayList.add(bean);
-        }
-        VolleySingleton.getInstance().liteInsert(arrayList);
     }
 
     @Override
     protected void initView() {
-        tvMusic = bindView(R.id.tv_recommend_music);
-        tlRecommended = bindView(R.id.tl_recommend);
         vpRecommended = bindView(R.id.vp_recommeded);
-        tvMusic.setOnClickListener(this);
-
+        tlRecommended = bindView(R.id.tl_recommend);
     }
 
     @Override
     protected int getLayout() {
         return R.layout.recommended_fragment;
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.tv_recommend_music:
-                
-                VolleySingleton.getInstance().liteQueryDate(new VolleySingleton.OnQueryListenerAll<FirstBean>() {
-                    @Override
-                    public void onQuery(List<FirstBean> T) {
-                        Log.d("RecommendedFragment", "T:" + T);
-                    }
-                },FirstBean.class);
-                break;
-        }
     }
 }

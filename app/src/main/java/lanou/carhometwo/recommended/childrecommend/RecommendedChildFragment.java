@@ -26,27 +26,30 @@ import lanou.carhometwo.bean.RecommendChildBean;
 import lanou.carhometwo.internet.GsonRequset;
 import lanou.carhometwo.internet.VolleySingleton;
 import lanou.carhometwo.weiget.DividerItemDecoration;
+import lanou.carhometwo.weiget.URLValues;
 
 /**
  * Created by dllo on 16/10/24.
  */
 public class RecommendedChildFragment extends BaseFragment {
-
+//    private static final String key = "recommendKey";
+//    private static final String Id = "recommendId";
     private RecyclerView lvRecommendedChild;
-    private LinearLayout llShuffing;
-    private String childUrl = "http://app.api.autohome.com.cn/autov4.8.8/news/newslist-pm1-c0-nt0-p1-s30-l0.json";
-    private ViewPager mViewPager;
-    private List<ImageView> mList;
-    private BannerAdapter mAdapter;
-    private BannerListener bannerListener;
+
+    private String childUrl = URLValues.URL_NEW;
     private Context context;
-    private int pointIndex = 0;
-    private ArrayList<String> imgArr;
-    private int wheelSize;
-    private Handler mHandler;
     private RecommendedChildAdapter reAdapter;
     private RecyclerViewHeader recyclerViewHeader;
-    private View view;
+    private int wheelSize;
+    private LinearLayout llShuffing;
+    private ViewPager mViewPager;
+    private BannerAdapter mAdapter;
+    private ArrayList<String> imgArr;
+    private BannerListener bannerListener;
+    private int pointIndex = 0;
+    private Handler mHandler;
+    private List<ImageView> mList;
+    private ArrayList<String> arrayListId;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,36 +74,36 @@ public class RecommendedChildFragment extends BaseFragment {
             @Override
             public void onResponse(RecommendChildBean response) {
 
-                imgArr = new ArrayList<>();
-                wheelSize = response.getResult().getFocusimg().size();
-                for (int i = 0; i < wheelSize; i++) {
-                    String imgUrl = response.getResult().getFocusimg().get(i).getImgurl();
-                    imgArr.add(imgUrl);
-                }
+                    imgArr = new ArrayList<>();
+                    View view;
+                    wheelSize = response.getResult().getFocusimg().size();
+                    for (int i = 0; i < wheelSize; i++) {
+                        String imgUrl = response.getResult().getFocusimg().get(i).getImgurl();
+                        imgArr.add(imgUrl);
+                    }
+
+                    mList = new ArrayList<ImageView>();
+                    LinearLayout.LayoutParams params;
+                    for (int i = 0; i < imgArr.size(); i++) {
+                        view = new View(getContext());
+                        params = new LinearLayout.LayoutParams(10, 10);
+                        params.leftMargin = 10;
+                        view.setBackgroundResource(R.drawable.shapebackground);
+                        view.setLayoutParams(params);
+                        view.setEnabled(false);
+                        llShuffing.addView(view);
+                    }
+
+                    reAdapter = new RecommendedChildAdapter(getActivity());
+                    reAdapter.setRecommendChildBean(response);
+
+                    lvRecommendedChild.setAdapter(reAdapter);
+                    mAdapter = new BannerAdapter(imgArr);
+                    mViewPager.setAdapter(mAdapter);
+                    initAction();
 
 
-                mList = new ArrayList<ImageView>();
-                LinearLayout.LayoutParams params;
-                for (int i = 0; i < imgArr.size(); i++) {
-                    view = new View(getContext());
-                    params = new LinearLayout.LayoutParams(10, 10);
-                    params.leftMargin = 10;
-                    view.setBackgroundResource(R.drawable.shapebackground);
-                    view.setLayoutParams(params);
-                    view.setEnabled(false);
-                    llShuffing.addView(view);
 
-                }
-
-
-                reAdapter = new RecommendedChildAdapter(getActivity());
-                reAdapter.setRecommendChildBean(response);
-
-                lvRecommendedChild.setAdapter(reAdapter);
-                mAdapter = new BannerAdapter(imgArr);
-                mViewPager.setAdapter(mAdapter);
-
-                initAction();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -117,8 +120,8 @@ public class RecommendedChildFragment extends BaseFragment {
         lvRecommendedChild = bindView(R.id.lv_recommend_child);
         recyclerViewHeader = bindView(R.id.rv_head_recommend);
         lvRecommendedChild.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
-        mViewPager = bindView(recyclerViewHeader,R.id.vp_shuffling);
-        llShuffing = bindView(recyclerViewHeader,R.id.ll_shuffling_points);
+        mViewPager = bindView(recyclerViewHeader, R.id.vp_shuffling);
+        llShuffing = bindView(recyclerViewHeader, R.id.ll_shuffling_points);
 
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         lvRecommendedChild.setLayoutManager(manager);
@@ -134,7 +137,7 @@ public class RecommendedChildFragment extends BaseFragment {
         mViewPager.addOnPageChangeListener(bannerListener);
         int index = (100 / 2) - (100 / 2 % imgArr.size());
         mViewPager.setCurrentItem(index, false);
-        llShuffing.getChildAt(pointIndex).setEnabled(true);//dian
+        llShuffing.getChildAt(pointIndex).setEnabled(true);
     }
 
     @Override
@@ -158,7 +161,6 @@ public class RecommendedChildFragment extends BaseFragment {
 
         @Override
         public void onPageScrollStateChanged(int arg0) {
-
         }
 
         @Override
@@ -167,17 +169,32 @@ public class RecommendedChildFragment extends BaseFragment {
 
         @Override
         public void onPageSelected(final int position) {
-
             if (wheelSize != 0) {
                 int newPosition = position % wheelSize;
-                view = llShuffing.getChildAt(newPosition);
-                view.setEnabled(true);
-
-//                llShuffing.getChildAt(newPosition).setEnabled(true);
-//                llShuffing.getChildAt(pointIndex).setEnabled(false);
+                llShuffing.getChildAt(newPosition).setEnabled(true);
+                llShuffing.getChildAt(pointIndex).setEnabled(false);
                 pointIndex = newPosition;
             }
         }
     }
 
+//    public static RecommendedChildFragment getInstance(int pos, ArrayList<String> arrayList) {
+//        RecommendedChildFragment hotRepeatFragment = new RecommendedChildFragment();
+//        Bundle bundle = new Bundle();
+//        bundle.putInt(key, pos);
+//        bundle.putStringArrayList(Id, arrayList);
+//        hotRepeatFragment.setArguments(bundle);
+//        return hotRepeatFragment;
+//    }
+//
+//    @Override
+//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+//        super.onActivityCreated(savedInstanceState);
+//        String uri;
+//        Bundle bundle = getArguments();
+//        arrayListId = bundle.getStringArrayList(Id);
+//        for (int i = 0; i < arrayListId.size(); i++) {
+//            uri = arrayListId.get(i);
+//        }
+//    }
 }

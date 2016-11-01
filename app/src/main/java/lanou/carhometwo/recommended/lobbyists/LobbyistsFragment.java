@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.widget.TextView;
 
+import java.util.ArrayList;
+
 import lanou.carhometwo.R;
 import lanou.carhometwo.base.BaseFragment;
 
@@ -14,15 +16,18 @@ public class LobbyistsFragment extends BaseFragment {
 
     private static final String Key = "lobby";
     private TextView tv;
+    private static final String Poss = "pos";
+    // TODO: 16/10/31  
 
-    public static LobbyistsFragment getInstance(int pos) {
+
+    public static LobbyistsFragment getInstance(int pos , ArrayList<Integer> arrayListPos) {
         LobbyistsFragment lobbyistsFragment = new LobbyistsFragment();
         Bundle bundle = new Bundle();
         bundle.putInt(Key, pos);
+        bundle.putIntegerArrayList(Poss,arrayListPos);
         lobbyistsFragment.setArguments(bundle);
         return lobbyistsFragment;
     }
-
 
     @Override
     protected void initData() {

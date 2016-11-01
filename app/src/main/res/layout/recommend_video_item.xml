@@ -8,13 +8,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-
     <TextView
         android:id="@+id/tv_recommend_video_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-     
+
         android:layout_marginTop="8dp"
         android:text="hehe"
         android:textColor="#000000"
@@ -23,11 +22,11 @@
     <ImageView
         android:layout_below="@id/tv_recommend_video_title"
         android:id="@+id/iv_recommend_video"
-        android:layout_width="350dp"
+        android:layout_width="370dp"
         android:layout_height="250dp"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="3dp"
         android:scaleType="centerCrop"
         android:src="@mipmap/ic_launcher" />
 
