@@ -22,12 +22,13 @@ import java.util.List;
 
 import lanou.carhometwo.R;
 import lanou.carhometwo.base.BaseFragment;
-import lanou.carhometwo.internet.GsonRequset;
+import lanou.carhometwo.bean.GoodWorkBean;
+import lanou.carhometwo.internet.GsonRequest;
 import lanou.carhometwo.internet.VolleySingleton;
 import lanou.carhometwo.recommended.childrecommend.BannerAdapter;
 import lanou.carhometwo.recommended.childrecommend.RecommendedChildAdapter;
-import lanou.carhometwo.weiget.DividerItemDecoration;
-import lanou.carhometwo.weiget.URLValues;
+import tools.DividerItemDecoration;
+import lanou.carhometwo.internet.URLValues;
 
 /**
  * Created by dllo on 16/10/24.
@@ -45,7 +46,6 @@ public class GoodWorkFragment extends BaseFragment {
     private int pointIndex = 0;
     private Handler mHandler;
     private List<ImageView> mList;
-    private ArrayList<String> arrayListId;
     private RecyclerView lvRecommendedChild;
     private GoodWorkAdapter adapter;
 
@@ -67,7 +67,7 @@ public class GoodWorkFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        GsonRequset<GoodWorkBean> gsonRequset = new GsonRequset<GoodWorkBean>(GoodWorkBean.class, childUrl, new Response.Listener<GoodWorkBean>() {
+        GsonRequest<GoodWorkBean> gsonRequest = new GsonRequest<GoodWorkBean>(GoodWorkBean.class, childUrl, new Response.Listener<GoodWorkBean>() {
 
             @Override
             public void onResponse(GoodWorkBean response) {
@@ -107,7 +107,7 @@ public class GoodWorkFragment extends BaseFragment {
             }
         });
 
-        VolleySingleton.getInstance().addRequest(gsonRequset);
+        VolleySingleton.getInstance().addRequest(gsonRequest);
     }
 
     @Override
@@ -141,11 +141,6 @@ public class GoodWorkFragment extends BaseFragment {
         return R.layout.good_work_fragment;
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        this.context = context;
-    }
 
     @Override
     public void onDestroyView() {

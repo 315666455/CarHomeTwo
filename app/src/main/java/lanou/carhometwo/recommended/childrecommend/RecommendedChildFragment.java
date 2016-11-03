@@ -23,10 +23,10 @@ import java.util.List;
 import lanou.carhometwo.R;
 import lanou.carhometwo.base.BaseFragment;
 import lanou.carhometwo.bean.RecommendChildBean;
-import lanou.carhometwo.internet.GsonRequset;
+import lanou.carhometwo.internet.GsonRequest;
 import lanou.carhometwo.internet.VolleySingleton;
-import lanou.carhometwo.weiget.DividerItemDecoration;
-import lanou.carhometwo.weiget.URLValues;
+import tools.DividerItemDecoration;
+import lanou.carhometwo.internet.URLValues;
 
 /**
  * Created by dllo on 16/10/24.
@@ -69,7 +69,8 @@ public class RecommendedChildFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-        GsonRequset<RecommendChildBean> gsonRequset = new GsonRequset<RecommendChildBean>(RecommendChildBean.class, childUrl, new Response.Listener<RecommendChildBean>() {
+        GsonRequest<RecommendChildBean> gsonRequest = new GsonRequest<RecommendChildBean>
+                (RecommendChildBean.class, childUrl, new Response.Listener<RecommendChildBean>() {
 
             @Override
             public void onResponse(RecommendChildBean response) {
@@ -101,9 +102,6 @@ public class RecommendedChildFragment extends BaseFragment {
                     mAdapter = new BannerAdapter(imgArr);
                     mViewPager.setAdapter(mAdapter);
                     initAction();
-
-
-
             }
         }, new Response.ErrorListener() {
             @Override
@@ -111,7 +109,7 @@ public class RecommendedChildFragment extends BaseFragment {
             }
         });
 
-        VolleySingleton.getInstance().addRequest(gsonRequset);
+        VolleySingleton.getInstance().addRequest(gsonRequest);
     }
 
     @Override
@@ -145,11 +143,7 @@ public class RecommendedChildFragment extends BaseFragment {
         return R.layout.recommended_child_fragment;
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        this.context = context;
-    }
+
 
     @Override
     public void onDestroyView() {
@@ -178,23 +172,5 @@ public class RecommendedChildFragment extends BaseFragment {
         }
     }
 
-//    public static RecommendedChildFragment getInstance(int pos, ArrayList<String> arrayList) {
-//        RecommendedChildFragment hotRepeatFragment = new RecommendedChildFragment();
-//        Bundle bundle = new Bundle();
-//        bundle.putInt(key, pos);
-//        bundle.putStringArrayList(Id, arrayList);
-//        hotRepeatFragment.setArguments(bundle);
-//        return hotRepeatFragment;
-//    }
-//
-//    @Override
-//    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-//        super.onActivityCreated(savedInstanceState);
-//        String uri;
-//        Bundle bundle = getArguments();
-//        arrayListId = bundle.getStringArrayList(Id);
-//        for (int i = 0; i < arrayListId.size(); i++) {
-//            uri = arrayListId.get(i);
-//        }
-//    }
+
 }

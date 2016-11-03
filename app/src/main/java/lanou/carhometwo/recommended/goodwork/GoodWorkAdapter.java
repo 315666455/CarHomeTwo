@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import lanou.carhometwo.R;
+import lanou.carhometwo.bean.GoodWorkBean;
 import lanou.carhometwo.internet.VolleySingleton;
 import lanou.carhometwo.weiget.CircleHead;
 

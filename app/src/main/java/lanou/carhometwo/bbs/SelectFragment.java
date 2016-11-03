@@ -1,10 +1,9 @@
-package lanou.carhometwo.recommended;
+package lanou.carhometwo.bbs;
 
 /**
- * Created by dllo on 16/10/25.
+ * Created by dllo on 16/11/1.
  */
-public class CultureFragment extends lanou.carhometwo.base.BaseFragment {
-
+public class SelectFragment extends lanou.carhometwo.base.BaseFragment {
     @Override
     protected void initData() {
 

@@ -1,4 +1,4 @@
-package lanou.carhometwo.weiget;
+package tools;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;

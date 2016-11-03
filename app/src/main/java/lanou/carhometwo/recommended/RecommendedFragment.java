@@ -9,40 +9,34 @@ import java.util.ArrayList;
 
 import lanou.carhometwo.R;
 import lanou.carhometwo.base.BaseFragment;
-import lanou.carhometwo.recommended.childrecommend.RecommendedChildFragment;
-import lanou.carhometwo.recommended.goodwork.GoodWorkFragment;
+import lanou.carhometwo.internet.URLValues;
 
 
 public class RecommendedFragment extends BaseFragment {
 
     private TabLayout tlRecommended;
     private ViewPager vpRecommended;
-//    private ArrayList<String> arrayListUrl;
+    private ArrayList<String> arrayListUrl;
 
     @Override
     protected void initData() {
 
-//        arrayListUrl = new ArrayList<>();
-//        arrayListUrl.add(URLValues.URL_NEW);
-//        arrayListUrl.add(URLValues.URL_YC);
-//        arrayListUrl.add(URLValues.URL_SAY);
-//        arrayListUrl.add(URLValues.URL_VIEDIO);
-//        arrayListUrl.add(URLValues.URL_QUICK);
-//        arrayListUrl.add(URLValues.URL_MARKET);
-//        arrayListUrl.add(URLValues.URL_NEWS);
-//        arrayListUrl.add(URLValues.URL_TESTCAR);
-//        arrayListUrl.add(URLValues.URL_SHOP);
-//        arrayListUrl.add(URLValues.URL_USECAR);
-//        arrayListUrl.add(URLValues.URL_TECHNOLOGY);
-//        arrayListUrl.add(URLValues.URL_CULTURE);
-//        arrayListUrl.add(URLValues.URL_CHANGE);
+        arrayListUrl = new ArrayList<>();
+        arrayListUrl.add("0");
+        arrayListUrl.add("1");
+        arrayListUrl.add(URLValues.URL_SAY);
+        arrayListUrl.add("3");
+        arrayListUrl.add("4");
+        arrayListUrl.add(URLValues.URL_MARKET);
+        arrayListUrl.add(URLValues.URL_NEWS);
+        arrayListUrl.add(URLValues.URL_TESTCAR);
+        arrayListUrl.add(URLValues.URL_SHOP);
+        arrayListUrl.add(URLValues.URL_USECAR);
+        arrayListUrl.add(URLValues.URL_TECHNOLOGY);
+        arrayListUrl.add(URLValues.URL_CULTURE);
+        arrayListUrl.add(URLValues.URL_CHANGE);
 
-//        RecommendedAdapter adapter = new RecommendedAdapter(getChildFragmentManager(),arrayListUrl);
-        ArrayList<BaseFragment>arrayList = new ArrayList<>();
-        arrayList.add(new RecommendedChildFragment());
-        arrayList.add(new GoodWorkFragment());
-        RecommendedAdapter adapter = new RecommendedAdapter(getChildFragmentManager());
-        adapter.setArrayList(arrayList);
+        RecommendedAdapter adapter = new RecommendedAdapter(getChildFragmentManager(),arrayListUrl);
         vpRecommended.setAdapter(adapter);
         tlRecommended.setupWithViewPager(vpRecommended);
         tlRecommended.setSelectedTabIndicatorColor(Color.BLACK);

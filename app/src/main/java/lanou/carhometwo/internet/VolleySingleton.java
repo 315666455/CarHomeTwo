@@ -16,6 +16,7 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import lanou.carhometwo.R;
+import lanou.carhometwo.base.MyApp;
 
 /**
  * Created by dllo on 16/10/24.
@@ -29,7 +30,6 @@ public class VolleySingleton {
     private Executor executor;
     private Handler handler;
 
-    //
     public VolleySingleton() {
         requestQueue = Volley.newRequestQueue(MyApp.getContext());
         imageLoader = new ImageLoader(requestQueue, new MemoryCache());
@@ -111,7 +111,7 @@ public class VolleySingleton {
 
     //请求图片
     public void getImage(String url, ImageView imageView) {
-        imageLoader.get(url, imageLoader.getImageListener(imageView, R.mipmap.ic_launcher, R.mipmap.ic_launcher));
+        imageLoader.get(url, ImageLoader.getImageListener(imageView, R.mipmap.ic_launcher, R.mipmap.ic_launcher));
     }
 
     //创建接口

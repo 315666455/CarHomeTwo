@@ -13,7 +13,7 @@ import com.android.volley.VolleyError;
 import lanou.carhometwo.R;
 import lanou.carhometwo.base.BaseActivity;
 import lanou.carhometwo.bean.FirstBean;
-import lanou.carhometwo.internet.GsonRequset;
+import lanou.carhometwo.internet.GsonRequest;
 import lanou.carhometwo.internet.VolleySingleton;
 import lanou.carhometwo.main.MainActivity;
 
@@ -44,29 +44,33 @@ public class FirstActivity extends BaseActivity {
         });
     }
 
-
     @Override
     protected void initData() {
-
-        GsonRequset<FirstBean> gsonRequset = new GsonRequset<FirstBean>(FirstBean.class, firstUrl, new Response.Listener<FirstBean>() {
+        GsonRequest<FirstBean> gsonRequest = new GsonRequest<FirstBean>(FirstBean.class, firstUrl, new Response.Listener<FirstBean>() {
             @Override
             public void onResponse(FirstBean response) {
 
                 String imgUrlFront = response.getResult().getAd().getImgad().getImgurl();
-
                 VolleySingleton.getInstance().getImage(imgUrlFront, imgFirst);
                 int showTime = response.getResult().getAd().getShowtime();
-
                 ShowTimeAs showTimeAs = new ShowTimeAs();
                 showTimeAs.execute(showTime);
+
+
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
+
+                Intent intent = new Intent(FirstActivity.this, MainActivity.class);
+                startActivity(intent);
+                is = false;
+                finish();
+
                 Toast.makeText(FirstActivity.this, "网络不稳定", Toast.LENGTH_SHORT).show();
             }
         });
-        VolleySingleton.getInstance().addRequest(gsonRequset);
+        VolleySingleton.getInstance().addRequest(gsonRequest);
     }
 
     class ShowTimeAs extends AsyncTask<Integer, String, String> {

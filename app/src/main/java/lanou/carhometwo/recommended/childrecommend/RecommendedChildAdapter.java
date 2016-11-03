@@ -71,7 +71,6 @@ public class RecommendedChildAdapter extends RecyclerView.Adapter {
         return recommendChildBean == null ? 0 : recommendChildBean.getResult().getNewslist().size();
     }
 
-
     class NewsViewHolder extends RecyclerView.ViewHolder {
         private TextView tvTitle;
         private TextView tvTime;
