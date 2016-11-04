@@ -40,6 +40,11 @@ public class LobbyistsAdapter extends BaseAdapter {
     public View getView(int i, View view, ViewGroup viewGroup) {
         CommonViewHolder commonViewHolder = CommonViewHolder.getViewHolder(view, viewGroup, R.layout.lobbyists_item);
         commonViewHolder.setText(R.id.tv_lobbyists_title, lobbyistsBean.getResult().getList().get(i).getTitle());
+        commonViewHolder.setText(R.id.tv_lobbyists_time,lobbyistsBean.getResult().getList().get(i).getTime());
+        commonViewHolder.setText(R.id.tv_lobbyists_replycount,String.valueOf(lobbyistsBean.getResult().getList().get(i).getReplycount())+"条 评论");
+        commonViewHolder.setImage(R.id.iv_lobbyists_img,lobbyistsBean.getResult().getList().get(i).getSmallpic());
+
+
         return commonViewHolder.getItemView();
     }
 }

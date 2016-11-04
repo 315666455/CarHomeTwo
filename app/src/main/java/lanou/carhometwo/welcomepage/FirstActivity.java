@@ -55,10 +55,10 @@ public class FirstActivity extends BaseActivity {
                 int showTime = response.getResult().getAd().getShowtime();
                 ShowTimeAs showTimeAs = new ShowTimeAs();
                 showTimeAs.execute(showTime);
-
-
             }
-        }, new Response.ErrorListener() {
+        },
+
+                new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
 
@@ -66,12 +66,12 @@ public class FirstActivity extends BaseActivity {
                 startActivity(intent);
                 is = false;
                 finish();
-
                 Toast.makeText(FirstActivity.this, "网络不稳定", Toast.LENGTH_SHORT).show();
             }
         });
         VolleySingleton.getInstance().addRequest(gsonRequest);
     }
+
 
     class ShowTimeAs extends AsyncTask<Integer, String, String> {
 

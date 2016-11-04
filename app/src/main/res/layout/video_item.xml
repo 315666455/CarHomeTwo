@@ -4,19 +4,18 @@
     android:layout_height="wrap_content">
 
     <TextView
-        android:id="@+id/tv_recommend_video_title"
+        android:id="@+id/tv_video_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-
         android:layout_marginTop="8dp"
         android:text="hehe"
         android:textColor="#000000"
         android:textSize="15dp" />
 
     <ImageView
-        android:layout_below="@id/tv_recommend_video_title"
-        android:id="@+id/iv_recommend_video"
+        android:layout_below="@id/tv_video_title"
+        android:id="@+id/iv_video"
         android:layout_width="370dp"
         android:layout_height="250dp"
         android:layout_alignParentRight="true"
@@ -26,21 +25,31 @@
         android:src="@mipmap/ic_launcher" />
 
     <TextView
-        android:id="@+id/tv_recommend_video_replycount"
+        android:id="@+id/tv_video_playcount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/iv_recommend_video"
+        android:layout_below="@id/iv_video"
         android:layout_marginBottom="5dp"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="5dp"
         android:text="嘿接" />
 
     <TextView
-        android:id="@+id/tv_recommend_video_time"
+        android:id="@+id/tv_video_replycount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/iv_video"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="5dp"
+        android:text="jiejie" />
+
+    <TextView
+        android:id="@+id/tv_video_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@id/iv_recommend_video"
+        android:layout_below="@id/iv_video"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="5dp"
@@ -48,4 +57,3 @@
 
 
 </RelativeLayout>
-
