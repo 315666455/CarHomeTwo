@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -16,7 +17,7 @@
             android:layout_weight="1.7" />
 
         <android.support.design.widget.TabLayout
-            android:id="@+id/tl_bbs"
+            android:id="@+id/tl_choose_car"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="2" />
@@ -32,16 +33,13 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
             android:src="@mipmap/ahlib_nav_icon_search_p" />
-
-
     </LinearLayout>
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/vp_bbs"
+        android:id="@+id/vp_choose_car"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="11" />
 
 
 </LinearLayout>
-

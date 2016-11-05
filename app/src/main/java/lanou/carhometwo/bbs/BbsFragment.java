@@ -33,7 +33,6 @@ public class BbsFragment extends BaseFragment {
 
     @Override
     protected void initView() {
-
         tl = bindView(R.id.tl_bbs);
         vp = bindView(R.id.vp_bbs);
     }
