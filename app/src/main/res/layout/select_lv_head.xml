@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="90dp"
+            android:background="#d9d6d6">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="80dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:scaleType="fitXY"
+                android:src="@mipmap/guang1_meitu_1" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="125dp">
+
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="15dp"
+                android:text="精选推荐"
+                android:textColor="#000000"
+                android:textSize="17dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="0dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="23dp"
+                android:text="全部"
+                android:textColor="#6b6969" />
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginBottom="0dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="25dp"
+                android:src="@mipmap/ahlib_arrow_right" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/shape3"
+                android:text="媳妇当车模"
+                android:textColor="#0067d1"
+                android:textSize="12dp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="105dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/shape3"
+                android:text="美人'记'"
+                android:textColor="#0067d1"
+                android:textSize="12dp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="180dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/shape4"
+                android:text="高端阵地"
+                android:textColor="#f9ef2626"
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="265dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/shape3"
+                android:text="摩友天地"
+                android:textColor="#0067d1"
+                android:textSize="12dp" />
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="83dp"
+                android:background="@drawable/shape4"
+                android:text="精挑细选"
+                android:textColor="#f9ef2626"
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="92dp"
+                android:layout_marginTop="83dp"
+                android:background="@drawable/shape4"
+                android:text="妹子选车"
+                android:textColor="#f9ef2626"
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="173dp"
+                android:layout_marginTop="83dp"
+                android:background="@drawable/shape4"
+                android:text="论坛红人馆"
+                android:textColor="#f9ef2626"
+                android:textSize="12dp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="265dp"
+                android:layout_marginTop="83dp"
+                android:background="@drawable/shape3"
+                android:text="改装有理"
+                android:textColor="#0067d1"
+                android:textSize="12dp" />
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="7dp"
+            android:background="#d9d6d6" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:src="@mipmap/huo1" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="9"
+                android:text="24小时热帖"
+                android:textColor="#000000"
+                android:textSize="20dp" />
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_weight="1"
+                android:src="@mipmap/ahlib_arrow_right" />
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="7dp"
+            android:background="#d9d6d6" />
+    </LinearLayout>
+
+
+
+</LinearLayout>

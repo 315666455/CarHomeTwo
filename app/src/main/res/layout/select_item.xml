@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ImageView
+        android:scaleType="centerCrop"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="10dp"
+        android:id="@+id/iv_select_img"
+        android:layout_width="95dp"
+        android:layout_height="55dp"
+        android:layout_alignParentRight="true"
+        android:src="@mipmap/ic_launcher" />
+
+    <TextView
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/tv_select_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="hehe"
+        android:textColor="#000000"
+        android:textSize="15dp"
+        android:layout_marginRight="120dp"/>
+
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_below="@id/iv_select_img"
+        android:id="@+id/tv_select_replycount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="嘿接" />
+
+    <TextView
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="5dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="10dp"
+        android:layout_below="@id/iv_select_img"
+        android:id="@+id/tv_select_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="haha" />
+
+</RelativeLayout>
