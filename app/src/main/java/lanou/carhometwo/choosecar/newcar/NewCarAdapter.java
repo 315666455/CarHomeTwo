@@ -14,7 +14,7 @@ import tools.CommonViewHolder;
  */
 public class NewCarAdapter extends BaseAdapter {
 
-    Context context;
+
     NewCarBean newCarBean;
 
     @Override
@@ -33,7 +33,7 @@ public class NewCarAdapter extends BaseAdapter {
     }
 
     public NewCarAdapter(Context context) {
-        this.context = context;
+//        this.context = context;
     }
 
     public void setNewCarBean(NewCarBean newCarBean) {

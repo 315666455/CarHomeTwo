@@ -1,8 +1,10 @@
 package lanou.carhometwo.choosecar.newcar;
 
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ListView;
 
 import lanou.carhometwo.R;
 import lanou.carhometwo.bean.NewCarBean;
@@ -13,6 +15,18 @@ import tools.CommonViewHolder;
  * Created by dllo on 16/11/5.
  */
 public class NewCarBodyAdapter extends BaseAdapter implements StickyListHeadersAdapter {
+
+    private ListView listView;
+
+    Context context;
+   // private final NewCarBodyLvAdapter adapter;
+
+
+    public NewCarBodyAdapter(Context context) {
+        this.context = context;
+       // adapter = new NewCarBodyLvAdapter(context);
+
+    }
 
     NewCarBean newCarBean;
 
@@ -37,10 +51,15 @@ public class NewCarBodyAdapter extends BaseAdapter implements StickyListHeadersA
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
+
         CommonViewHolder commonViewHolder = CommonViewHolder.getViewHolder(view, viewGroup, R.layout.new_car_body_item);
-//        commonViewHolder.setImage(R.id.iv_new_car_body, newCarBean.getResult().getBrandlist().get(i).getList().get)
-        // TODO: 16/11/5 再写一个listview
-        return null;
+
+        listView = (ListView) commonViewHolder.getItemView().findViewById(R.id.lv_new_car_body);
+        NewCarBean.ResultBean.BrandlistBean listBean  = newCarBean.getResult().getBrandlist().get(i);
+        NewCarBodyLvAdapter adapter = new NewCarBodyLvAdapter();
+        adapter.setListBean(listBean);
+        listView.setAdapter(adapter);
+        return commonViewHolder.getItemView();
     }
 
     @Override
@@ -52,8 +71,6 @@ public class NewCarBodyAdapter extends BaseAdapter implements StickyListHeadersA
 
     @Override
     public long getHeaderId(int position) {
-
-
         return position;
     }
 }

@@ -4,16 +4,18 @@
     android:layout_height="match_parent">
 
 
-    <ListView
-        android:id="@+id/lv_new_car"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
     <se.emilsjolander.stickylistheaders.StickyListHeadersListView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/sk_new_car"
-        android:layout_alignParentRight="true"
-        />
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+
+    <ListView
+        android:divider="#00000000"
+        android:id="@+id/lv_new_car"
+        android:layout_width="15dp"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/sk_new_car"
+       />
 
 </RelativeLayout>

@@ -24,11 +24,11 @@ import lanou.carhometwo.R;
 import lanou.carhometwo.base.BaseFragment;
 import lanou.carhometwo.bean.GoodWorkBean;
 import lanou.carhometwo.internet.GsonRequest;
+import lanou.carhometwo.internet.URLValues;
 import lanou.carhometwo.internet.VolleySingleton;
 import lanou.carhometwo.recommended.childrecommend.BannerAdapter;
 import lanou.carhometwo.recommended.childrecommend.RecommendedChildAdapter;
 import tools.DividerItemDecoration;
-import lanou.carhometwo.internet.URLValues;
 
 /**
  * Created by dllo on 16/10/24.
@@ -83,7 +83,7 @@ public class GoodWorkFragment extends BaseFragment {
                 mList = new ArrayList<ImageView>();
                 LinearLayout.LayoutParams params;
                 for (int i = 0; i < imgArr.size(); i++) {
-                    view = new View(getContext());
+                    view = new View(getActivity());
                     params = new LinearLayout.LayoutParams(10, 10);
                     params.leftMargin = 10;
                     view.setBackgroundResource(R.drawable.shapebackground);
@@ -92,7 +92,7 @@ public class GoodWorkFragment extends BaseFragment {
                     llShuffing.addView(view);
                 }
 
-                adapter = new GoodWorkAdapter(getContext());
+                adapter = new GoodWorkAdapter(getActivity());
 
                 adapter.setGoodWorkBean(response);
 
