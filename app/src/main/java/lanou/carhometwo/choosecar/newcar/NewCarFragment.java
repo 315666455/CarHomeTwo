@@ -1,5 +1,6 @@
 package lanou.carhometwo.choosecar.newcar;
 
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,11 +24,11 @@ import se.emilsjolander.stickylistheaders.StickyListHeadersListView;
  */
 public class NewCarFragment extends lanou.carhometwo.base.BaseFragment {
 
-
     private ListView listView;
     private StickyListHeadersListView stickyListHeadersListView;
     private View view;
     private RecyclerView recyclerView;
+    private View viewHead;
 
     @Override
     protected void initData() {
@@ -35,10 +36,11 @@ public class NewCarFragment extends lanou.carhometwo.base.BaseFragment {
         GsonRequest<NewCarHotBean> gsonRequestHot = new GsonRequest<NewCarHotBean>(NewCarHotBean.class, URLValues.HOTBRAND_URL, new Response.Listener<NewCarHotBean>() {
             @Override
             public void onResponse(NewCarHotBean response) {
-
-
-
-
+                NewCarHotAdapter newCarHotAdapter = new NewCarHotAdapter();
+                newCarHotAdapter.setNewCarHotBean(response);
+                recyclerView.setAdapter(newCarHotAdapter);
+                GridLayoutManager manager = new GridLayoutManager(getActivity(), 5);
+                recyclerView.setLayoutManager(manager);
             }
         }, new Response.ErrorListener() {
             @Override
@@ -48,16 +50,21 @@ public class NewCarFragment extends lanou.carhometwo.base.BaseFragment {
         });
 
 
+        VolleySingleton.getInstance().addRequest(gsonRequestHot);
+
+
         GsonRequest<NewCarBean> gsonRequest = new GsonRequest<NewCarBean>(NewCarBean.class, URLValues.NEWCAR_BRAND_URL, new Response.Listener<NewCarBean>() {
             @Override
             public void onResponse(NewCarBean response) {
+
                 NewCarAdapter adapter = new NewCarAdapter(getActivity());
                 NewCarBodyAdapter bodyAdapter = new NewCarBodyAdapter(getActivity());
-
                 adapter.setNewCarBean(response);
+
                 bodyAdapter.setNewCarBean(response);
                 stickyListHeadersListView.setAdapter(bodyAdapter);
                 listView.setAdapter(adapter);
+                listView.addHeaderView(viewHead);
                 stickyListHeadersListView.addHeaderView(view);
             }
         }, new Response.ErrorListener() {
@@ -94,12 +101,11 @@ public class NewCarFragment extends lanou.carhometwo.base.BaseFragment {
         stickyListHeadersListView = bindView(R.id.sk_new_car);
         view = LayoutInflater.from(getActivity()).inflate(R.layout.new_car_head_view, null);
         recyclerView = bindView(view, R.id.rv_new_car);
+        viewHead = LayoutInflater.from(getActivity()).inflate(R.layout.new_car_head_view_null, null);
     }
 
     @Override
     protected int getLayout() {
         return R.layout.new_car_fragment;
     }
-
-
 }

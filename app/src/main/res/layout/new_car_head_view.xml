@@ -114,22 +114,22 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="15dp"
+        android:layout_height="20dp"
         android:background="#9f9a9a">
 
         <TextView
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="25dp"
             android:gravity="center_vertical"
-            android:text="    热门品牌"
+            android:text="热门品牌"
             android:textColor="#000000"
-            android:textSize="12dp" />
+            android:textSize="13dp" />
     </RelativeLayout>
 
 
     <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv_new_car"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/rv_new_car"/>
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

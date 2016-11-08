@@ -7,14 +7,9 @@ import lanou.carhometwo.R;
 import lanou.carhometwo.bean.NewCarHotBean;
 import tools.CommonViewHolder;
 
-/**
- * Created by dllo on 16/11/7.
- */
 public class NewCarHotAdapter extends RecyclerView.Adapter<CommonViewHolder> {
 
-
     NewCarHotBean newCarHotBean;
-
 
     public void setNewCarHotBean(NewCarHotBean newCarHotBean) {
         this.newCarHotBean = newCarHotBean;
@@ -23,16 +18,13 @@ public class NewCarHotAdapter extends RecyclerView.Adapter<CommonViewHolder> {
     @Override
     public CommonViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         CommonViewHolder commonViewHolder = CommonViewHolder.getViewHolder(parent, R.layout.new_car_rv_item);
-        
         return commonViewHolder;
     }
 
     @Override
     public void onBindViewHolder(CommonViewHolder holder, int position) {
-
-//        holder.setText()
-        // TODO: 16/11/7 添加数据 
-        
+        holder.setText(R.id.tv_new_car_hot_name, " " + newCarHotBean.getResult().getList().get(position).getName());
+        holder.setImage(R.id.iv_new_car_hot, newCarHotBean.getResult().getList().get(position).getImg());
     }
 
     @Override
