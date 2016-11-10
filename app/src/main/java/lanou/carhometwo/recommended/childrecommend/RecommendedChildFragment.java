@@ -1,6 +1,7 @@
 package lanou.carhometwo.recommended.childrecommend;
 
 import android.content.Context;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -10,9 +11,11 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -25,9 +28,10 @@ import lanou.carhometwo.R;
 import lanou.carhometwo.base.BaseFragment;
 import lanou.carhometwo.bean.RecommendChildBean;
 import lanou.carhometwo.internet.GsonRequest;
+import lanou.carhometwo.internet.URLValues;
 import lanou.carhometwo.internet.VolleySingleton;
 import tools.DividerItemDecoration;
-import lanou.carhometwo.internet.URLValues;
+import tools.EndLessOnScrollLisener;
 
 /**
  * Created by dllo on 16/10/24.
@@ -35,7 +39,6 @@ import lanou.carhometwo.internet.URLValues;
 public class RecommendedChildFragment extends BaseFragment {
 
     private RecyclerView lvRecommendedChild;
-
     private String childUrl = URLValues.URL_NEW;
     private Context context;
     private RecommendedChildAdapter reAdapter;
@@ -51,6 +54,10 @@ public class RecommendedChildFragment extends BaseFragment {
     private List<ImageView> mList;
     private ArrayList<String> arrayListId;
     private SwipeRefreshLayout swipeRefreshLayout;
+    private RecommendChildBean recommendChildBean;
+    private LinearLayoutManager manager;
+    private boolean is = false;
+    private int i = 15;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -70,14 +77,6 @@ public class RecommendedChildFragment extends BaseFragment {
 
     @Override
     protected void initData() {
-
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                swipeRefreshLayout.setRefreshing(false);
-
-            }
-        });
 
         GsonRequest<RecommendChildBean> gsonRequest = new GsonRequest<RecommendChildBean>
                 (RecommendChildBean.class, childUrl, new Response.Listener<RecommendChildBean>() {
@@ -111,7 +110,6 @@ public class RecommendedChildFragment extends BaseFragment {
                         mAdapter = new BannerAdapter(imgArr);
                         mViewPager.setAdapter(mAdapter);
                         initAction();
-
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -120,6 +118,38 @@ public class RecommendedChildFragment extends BaseFragment {
                 });
 
         VolleySingleton.getInstance().addRequest(gsonRequest);
+
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                RefreshAs refreshAs = new RefreshAs();
+                refreshAs.execute();
+                reAdapter.notifyDataSetChanged();
+            }
+        });
+
+        lvRecommendedChild.addOnScrollListener(new EndLessOnScrollLisener(manager) {
+
+            @Override
+            protected void onLoadMore(int curentPage) {
+                Log.d("RecommendedChildFragmen", "呵呵");
+                i = i + 15;
+                GsonRequest<RecommendChildBean> gsonRequestRefresh = new GsonRequest<RecommendChildBean>(RecommendChildBean.class, "http://app.api.autohome.com.cn/autov4.8.8/news/newslist-pm1-c0-nt0-p1-s30-l" + i + ".json", new Response.Listener<RecommendChildBean>() {
+                    @Override
+                    public void onResponse(RecommendChildBean response) {
+                        reAdapter.setRecommendChildBean(response,is);
+                        reAdapter.notifyDataSetChanged();
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                    }
+                });
+                VolleySingleton.getInstance().addRequest(gsonRequestRefresh);
+            }
+        });
     }
 
     @Override
@@ -132,7 +162,7 @@ public class RecommendedChildFragment extends BaseFragment {
         mViewPager = bindView(recyclerViewHeader, R.id.vp_shuffling);
         llShuffing = bindView(recyclerViewHeader, R.id.ll_shuffling_points);
 
-        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+        manager = new LinearLayoutManager(getActivity());
         lvRecommendedChild.setLayoutManager(manager);
         recyclerViewHeader.attachTo(lvRecommendedChild, true);
 
@@ -142,7 +172,6 @@ public class RecommendedChildFragment extends BaseFragment {
     }
 
     private void initAction() {
-
         bannerListener = new BannerListener();
         mViewPager.addOnPageChangeListener(bannerListener);
         int index = (100 / 2) - (100 / 2 % imgArr.size());
@@ -183,5 +212,25 @@ public class RecommendedChildFragment extends BaseFragment {
         }
     }
 
+    class RefreshAs extends AsyncTask<String, String, String> {
 
+        @Override
+        protected String doInBackground(String... strings) {
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            swipeRefreshLayout.setRefreshing(false);
+            Toast.makeText(RecommendedChildFragment.this.getContext(), "刷新成功", Toast.LENGTH_SHORT).show();
+        }
+    }
 }

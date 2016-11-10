@@ -1,21 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<android.support.v4.widget.SwipeRefreshLayout android:id="@+id/sr_recommend_child"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:overScrollMode="always"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
 
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/sr_recommend_child"
-        />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/lv_recommend_child"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
 
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/lv_recommend_child"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
 
     <com.bartoszlipinski.recyclerviewheader.RecyclerViewHeader
         android:id="@+id/rv_head_recommend"
@@ -46,4 +51,7 @@
     </com.bartoszlipinski.recyclerviewheader.RecyclerViewHeader>
 
 
+
+
 </RelativeLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>

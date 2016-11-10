@@ -91,7 +91,7 @@ public class FoundFragment extends BaseFragment {
                         foundSixAdapter.setFoundBean(response);
                         rvSix.setAdapter(foundSixAdapter);
 
-                        GridLayoutManager sixManager = new GridLayoutManager(getActivity(), 3, GridLayoutManager.HORIZONTAL, false);
+                        GridLayoutManager sixManager = new GridLayoutManager(context, 3, GridLayoutManager.HORIZONTAL, false);
                         rvSix.setLayoutManager(sixManager);
 
                         Picasso.with(getActivity()).load(response.getResult().getCardlist().get(3).getData().get(0).getImageurl()).into(imageView);
@@ -146,10 +146,7 @@ public class FoundFragment extends BaseFragment {
                     public void onErrorResponse(VolleyError error) {
                     }
                 });
-
         VolleySingleton.getInstance().addRequest(gsonRequest);
-
-
     }
 
     @Override
@@ -167,7 +164,6 @@ public class FoundFragment extends BaseFragment {
         imageViewActionTwo = bindView(viewHead, R.id.iv_found_action_two);
         imageViewActionThree = bindView(viewHead, R.id.iv_found_action_three);
         imageViewLast = bindView(viewHead, R.id.iv_found_last);
-
     }
 
     @Override

@@ -20,6 +20,17 @@ public class RecommendedChildAdapter extends RecyclerView.Adapter {
     private Context context;
     RecommendChildBean recommendChildBean;
 
+
+    //刷新
+    public void setRecommendChildBean(RecommendChildBean bean, boolean isRefresh) {
+        if (recommendChildBean == null || isRefresh) {
+            setRecommendChildBean(bean);
+        } else {
+            recommendChildBean.getResult().getFocusimg().addAll(bean.getResult().getFocusimg());
+            notifyDataSetChanged();
+        }
+    }
+
     public void setRecommendChildBean(RecommendChildBean recommendChildBean) {
         this.recommendChildBean = recommendChildBean;
         notifyDataSetChanged();

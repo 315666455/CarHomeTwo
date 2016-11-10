@@ -45,6 +45,7 @@ public class RecommendedFragment extends BaseFragment implements View.OnClickLis
         tlRecommended.setupWithViewPager(vpRecommended);
         tlRecommended.setSelectedTabIndicatorColor(Color.BLACK);
         tlRecommended.setTabMode(TabLayout.MODE_SCROLLABLE);
+//        vpRecommended.setCurrentItem();
     }
 
     @Override
@@ -67,11 +68,14 @@ public class RecommendedFragment extends BaseFragment implements View.OnClickLis
             case R.id.iv_recommend_menu:
                 Intent intent = new Intent(getActivity(), MoreActivity.class);
                 startActivity(intent);
-
                 break;
 
         }
 
 
     }
+
+
+
+
 }

@@ -53,11 +53,8 @@ public class NewCarBodyAdapter extends BaseAdapter implements StickyListHeadersA
     public View getView(int i, View view, ViewGroup viewGroup) {
 
         CommonViewHolder commonViewHolder = CommonViewHolder.getViewHolder(view, viewGroup, R.layout.new_car_body_item);
-
         listView = (ListView) commonViewHolder.getItemView().findViewById(R.id.lv_new_car_body);
-
         NewCarBean.ResultBean.BrandlistBean listBean  = newCarBean.getResult().getBrandlist().get(i);
-
         NewCarBodyLvAdapter adapter = new NewCarBodyLvAdapter();
         adapter.setListBean(listBean);
         listView.setAdapter(adapter);

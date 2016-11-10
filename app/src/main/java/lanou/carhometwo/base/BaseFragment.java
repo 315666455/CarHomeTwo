@@ -15,7 +15,7 @@ import lanou.carhometwo.R;
  */
 public abstract class BaseFragment extends Fragment {
 
-    private Context context;
+     protected Context context;
 
     @Nullable
     @Override

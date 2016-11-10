@@ -25,7 +25,7 @@ public class NewCarBodyLvAdapter extends BaseAdapter {
 
     @Override
     public int getCount() {
-        return listBean == null?0:listBean.getList().size();
+        return listBean == null ? 0 : listBean.getList().size();
     }
 
     @Override
