@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -53,6 +54,7 @@ public class FoundFragment extends BaseFragment {
     private ImageView imageViewActionThree;
     private ImageView imageViewLast;
     private ListView listView;
+    private View viewHead;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -136,6 +138,8 @@ public class FoundFragment extends BaseFragment {
                         bannerAdapter = new BannerAdapter(imgArr);
                         viewPager.setAdapter(bannerAdapter);
                         initAction();
+
+                        listView.addHeaderView(viewHead);
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -144,23 +148,25 @@ public class FoundFragment extends BaseFragment {
                 });
 
         VolleySingleton.getInstance().addRequest(gsonRequest);
+
+
     }
 
     @Override
     protected void initView() {
-        viewPager = bindView(R.id.vp_found_wheel);
-        linearLayout = bindView(R.id.ll_found_wheel);
-        recyclerView = bindView(R.id.rv_found_ten);
-        imageView = bindView(R.id.iv_found_three);
-        rvTimeLimit = bindView(R.id.rv_time_limit);
-        rvSix = bindView(R.id.rv_found_six);
-        imageViewTwo = bindView(R.id.iv_found_two);
-        imageViewActionOne = bindView(R.id.iv_found_action_one);
-        imageViewActionTwo = bindView(R.id.iv_found_action_two);
-        imageViewActionThree = bindView(R.id.iv_found_action_three);
-        imageViewLast = bindView(R.id.iv_found_last);
         listView = bindView(R.id.lv_found_last);
-
+        viewHead = LayoutInflater.from(getActivity()).inflate(R.layout.found_headview, null);
+        viewPager = bindView(viewHead, R.id.vp_found_wheel);
+        linearLayout = bindView(viewHead, R.id.ll_found_wheel);
+        recyclerView = bindView(viewHead, R.id.rv_found_ten);
+        imageView = bindView(viewHead, R.id.iv_found_three);
+        rvTimeLimit = bindView(viewHead, R.id.rv_time_limit);
+        rvSix = bindView(viewHead, R.id.rv_found_six);
+        imageViewTwo = bindView(viewHead, R.id.iv_found_two);
+        imageViewActionOne = bindView(viewHead, R.id.iv_found_action_one);
+        imageViewActionTwo = bindView(viewHead, R.id.iv_found_action_two);
+        imageViewActionThree = bindView(viewHead, R.id.iv_found_action_three);
+        imageViewLast = bindView(viewHead, R.id.iv_found_last);
 
     }
 

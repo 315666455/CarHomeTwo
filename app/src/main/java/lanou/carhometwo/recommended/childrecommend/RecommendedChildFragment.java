@@ -7,6 +7,7 @@ import android.os.Looper;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -32,8 +33,7 @@ import lanou.carhometwo.internet.URLValues;
  * Created by dllo on 16/10/24.
  */
 public class RecommendedChildFragment extends BaseFragment {
-//    private static final String key = "recommendKey";
-//    private static final String Id = "recommendId";
+
     private RecyclerView lvRecommendedChild;
 
     private String childUrl = URLValues.URL_NEW;
@@ -50,6 +50,7 @@ public class RecommendedChildFragment extends BaseFragment {
     private Handler mHandler;
     private List<ImageView> mList;
     private ArrayList<String> arrayListId;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -69,45 +70,54 @@ public class RecommendedChildFragment extends BaseFragment {
 
     @Override
     protected void initData() {
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(false);
+
+            }
+        });
+
         GsonRequest<RecommendChildBean> gsonRequest = new GsonRequest<RecommendChildBean>
                 (RecommendChildBean.class, childUrl, new Response.Listener<RecommendChildBean>() {
 
-            @Override
-            public void onResponse(RecommendChildBean response) {
+                    @Override
+                    public void onResponse(RecommendChildBean response) {
 
-                    imgArr = new ArrayList<>();
-                    View view;
-                    wheelSize = response.getResult().getFocusimg().size();
-                    for (int i = 0; i < wheelSize; i++) {
-                        String imgUrl = response.getResult().getFocusimg().get(i).getImgurl();
-                        imgArr.add(imgUrl);
+                        imgArr = new ArrayList<>();
+                        View view;
+                        wheelSize = response.getResult().getFocusimg().size();
+                        for (int i = 0; i < wheelSize; i++) {
+                            String imgUrl = response.getResult().getFocusimg().get(i).getImgurl();
+                            imgArr.add(imgUrl);
+                        }
+
+                        mList = new ArrayList<ImageView>();
+                        LinearLayout.LayoutParams params;
+                        for (int i = 0; i < imgArr.size(); i++) {
+                            view = new View(getContext());
+                            params = new LinearLayout.LayoutParams(10, 10);
+                            params.leftMargin = 10;
+                            view.setBackgroundResource(R.drawable.shapebackground);
+                            view.setLayoutParams(params);
+                            view.setEnabled(false);
+                            llShuffing.addView(view);
+                        }
+
+                        reAdapter = new RecommendedChildAdapter(getActivity());
+                        reAdapter.setRecommendChildBean(response);
+                        lvRecommendedChild.setAdapter(reAdapter);
+                        mAdapter = new BannerAdapter(imgArr);
+                        mViewPager.setAdapter(mAdapter);
+                        initAction();
+
                     }
-
-                    mList = new ArrayList<ImageView>();
-                    LinearLayout.LayoutParams params;
-                    for (int i = 0; i < imgArr.size(); i++) {
-                        view = new View(getContext());
-                        params = new LinearLayout.LayoutParams(10, 10);
-                        params.leftMargin = 10;
-                        view.setBackgroundResource(R.drawable.shapebackground);
-                        view.setLayoutParams(params);
-                        view.setEnabled(false);
-                        llShuffing.addView(view);
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
                     }
-
-                    reAdapter = new RecommendedChildAdapter(getActivity());
-                    reAdapter.setRecommendChildBean(response);
-
-                    lvRecommendedChild.setAdapter(reAdapter);
-                    mAdapter = new BannerAdapter(imgArr);
-                    mViewPager.setAdapter(mAdapter);
-                    initAction();
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-            }
-        });
+                });
 
         VolleySingleton.getInstance().addRequest(gsonRequest);
     }
@@ -115,6 +125,7 @@ public class RecommendedChildFragment extends BaseFragment {
     @Override
     protected void initView() {
 
+        swipeRefreshLayout = bindView(R.id.sr_recommend_child);
         lvRecommendedChild = bindView(R.id.lv_recommend_child);
         recyclerViewHeader = bindView(R.id.rv_head_recommend);
         lvRecommendedChild.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
@@ -131,6 +142,7 @@ public class RecommendedChildFragment extends BaseFragment {
     }
 
     private void initAction() {
+
         bannerListener = new BannerListener();
         mViewPager.addOnPageChangeListener(bannerListener);
         int index = (100 / 2) - (100 / 2 % imgArr.size());
@@ -142,7 +154,6 @@ public class RecommendedChildFragment extends BaseFragment {
     protected int getLayout() {
         return R.layout.recommended_child_fragment;
     }
-
 
 
     @Override

@@ -1,26 +1,30 @@
 package lanou.carhometwo.recommended;
 
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 
 import lanou.carhometwo.R;
 import lanou.carhometwo.base.BaseFragment;
 import lanou.carhometwo.internet.URLValues;
+import lanou.carhometwo.more.MoreActivity;
 
 
-public class RecommendedFragment extends BaseFragment {
+public class RecommendedFragment extends BaseFragment implements View.OnClickListener {
 
     private TabLayout tlRecommended;
     private ViewPager vpRecommended;
     private ArrayList<String> arrayListUrl;
+    private ImageView imageViewMenu;
 
     @Override
     protected void initData() {
-
         arrayListUrl = new ArrayList<>();
         arrayListUrl.add("0");
         arrayListUrl.add("1");
@@ -36,7 +40,7 @@ public class RecommendedFragment extends BaseFragment {
         arrayListUrl.add(URLValues.URL_CULTURE);
         arrayListUrl.add(URLValues.URL_CHANGE);
 
-        RecommendedAdapter adapter = new RecommendedAdapter(getChildFragmentManager(),arrayListUrl);
+        RecommendedAdapter adapter = new RecommendedAdapter(getChildFragmentManager(), arrayListUrl);
         vpRecommended.setAdapter(adapter);
         tlRecommended.setupWithViewPager(vpRecommended);
         tlRecommended.setSelectedTabIndicatorColor(Color.BLACK);
@@ -45,12 +49,29 @@ public class RecommendedFragment extends BaseFragment {
 
     @Override
     protected void initView() {
+
+        imageViewMenu = bindView(R.id.iv_recommend_menu);
         vpRecommended = bindView(R.id.vp_recommeded);
         tlRecommended = bindView(R.id.tl_recommend);
+        imageViewMenu.setOnClickListener(this);
     }
 
     @Override
     protected int getLayout() {
         return R.layout.recommended_fragment;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.iv_recommend_menu:
+                Intent intent = new Intent(getActivity(), MoreActivity.class);
+                startActivity(intent);
+
+                break;
+
+        }
+
+
     }
 }

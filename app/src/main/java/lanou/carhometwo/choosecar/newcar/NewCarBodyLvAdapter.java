@@ -40,7 +40,6 @@ public class NewCarBodyLvAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-
         CommonViewHolder commonViewHolder = CommonViewHolder.getViewHolder(view, viewGroup, R.layout.new_car_body_lv_item);
         commonViewHolder.setImage(R.id.iv_new_car_body, listBean.getList().get(i).getImgurl());
         commonViewHolder.setText(R.id.tv_new_car_body, listBean.getList().get(i).getName());

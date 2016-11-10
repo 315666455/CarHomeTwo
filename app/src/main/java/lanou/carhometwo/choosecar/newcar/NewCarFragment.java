@@ -52,7 +52,6 @@ public class NewCarFragment extends lanou.carhometwo.base.BaseFragment {
 
         VolleySingleton.getInstance().addRequest(gsonRequestHot);
 
-
         GsonRequest<NewCarBean> gsonRequest = new GsonRequest<NewCarBean>(NewCarBean.class, URLValues.NEWCAR_BRAND_URL, new Response.Listener<NewCarBean>() {
             @Override
             public void onResponse(NewCarBean response) {
