@@ -19,14 +19,9 @@ public class VolleySingleton {
     private RequestQueue requestQueue;
     private ImageLoader imageLoader;
 
-
-
-
     public VolleySingleton() {
         requestQueue = Volley.newRequestQueue(MyApp.getContext());
         imageLoader = new ImageLoader(requestQueue, new MemoryCache());
-
-
     }
 
     //线程锁
@@ -40,9 +35,6 @@ public class VolleySingleton {
         }
         return volleySingleton;
     }
-
-
-
 
     public RequestQueue getRequestQueue() {
         return requestQueue;

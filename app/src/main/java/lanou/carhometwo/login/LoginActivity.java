@@ -8,6 +8,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.greenrobot.eventbus.EventBus;
+
 import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import lanou.carhometwo.R;
@@ -39,7 +41,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     @Override
     protected void initData() {
-
     }
 
     @Override
@@ -50,17 +51,25 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 startActivity(intent);
                 break;
             case R.id.rv_login:
-                MyUser myUser = new MyUser();
-                myUser.setUsername(editTextTelephone.getText().toString());
-                myUser.setPassword(editTextPassword.getText().toString());
-                myUser.login(new SaveListener<MyUser>() {
+                LoginUser loginUser = new LoginUser();
+                loginUser.setUsername(editTextTelephone.getText().toString());
+                loginUser.setPassword(editTextPassword.getText().toString());
+                loginUser.login(new SaveListener<LoginUser>() {
                     @Override
-                    public void done(MyUser myUser, BmobException e) {
+                    public void done(LoginUser myUser, BmobException e) {
                         if (e == null) {
+                            String s = editTextTelephone.getText().toString();
+//                            loginSuccessChangeListerner.setText(s);
+                            TestBean testBean = new TestBean();
+                            testBean.setText(s);
+                            EventBus.getDefault().post(testBean);
+
                             Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                             Log.d("MainActivity", "登录成功");
+                            finish();
+
                         } else {
-                            Toast.makeText(LoginActivity.this, "登录失败", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "用户名或密码不正确", Toast.LENGTH_SHORT).show();
                             Log.d("MainActivity", e.getMessage());
                             Log.d("MainActivity", "登录失败");
                         }

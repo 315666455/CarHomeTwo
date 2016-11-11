@@ -6,7 +6,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="35dp">
+        android:layout_height="30dp">
 
         <TextView
             android:layout_width="0dp"
@@ -26,9 +26,10 @@
     </LinearLayout>
 
     <ListView
+
         android:id="@+id/lv_found_last"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="3dp" />
 
 </LinearLayout>

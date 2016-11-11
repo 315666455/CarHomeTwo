@@ -32,9 +32,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
         editTextPassword = (EditText) findViewById(R.id.et_register_password);
         relativeLayout = (RelativeLayout) findViewById(R.id.rl_register);
         relativeLayout.setOnClickListener(this);
-
-//        Bmob.initialize(RegisterActivity.this, "e5714d18cbe1a883a6630a402fa76f41");
-
     }
 
     @Override
@@ -48,8 +45,8 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
             case R.id.rl_register:
 
                 BmobUser bmobUser = new BmobUser();
-                bmobUser.setUsername(editTextPhone.getText().toString());//用户名
-                bmobUser.setPassword(editTextPassword.getText().toString());//密码
+                bmobUser.setUsername(editTextPhone.getText().toString());
+                bmobUser.setPassword(editTextPassword.getText().toString());
                 bmobUser.signUp(new SaveListener<BmobUser>() {
                     @Override
                     public void done(BmobUser bmobUser, BmobException e) {
@@ -57,6 +54,7 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                             Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
                             startActivity(intent);
+                            finish();
                         } else {
                             Log.d("444", e.getMessage());
                             Toast.makeText(RegisterActivity.this, "注册失败", Toast.LENGTH_SHORT).show();

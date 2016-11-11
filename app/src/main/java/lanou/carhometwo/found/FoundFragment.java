@@ -82,10 +82,8 @@ public class FoundFragment extends BaseFragment {
 
 
                         FoundLastAdapter foundLastAdapter = new FoundLastAdapter();
-
                         foundLastAdapter.setFoundBean(response);
                         listView.setAdapter(foundLastAdapter);
-
 
                         FoundSixAdapter foundSixAdapter = new FoundSixAdapter();
                         foundSixAdapter.setFoundBean(response);

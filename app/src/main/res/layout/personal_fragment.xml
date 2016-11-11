@@ -25,6 +25,7 @@
         android:orientation="vertical">
 
         <lanou.carhometwo.weiget.CircleHead
+            android:id="@+id/iv_telephone_login"
             android:layout_width="85dp"
             android:layout_height="85dp"
             android:layout_gravity="center_horizontal"
@@ -32,6 +33,7 @@
             app:isCircle="true" />
 
         <TextView
+            android:id="@+id/tv_telephone_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
@@ -40,6 +42,7 @@
 
 
     <LinearLayout
+        android:id="@+id/ll_third_party_login"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="2"
@@ -63,8 +66,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="新浪微博" />
-
-
         </LinearLayout>
 
         <LinearLayout
@@ -85,8 +86,6 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:text="腾讯QQ" />
-
-
         </LinearLayout>
 
 
