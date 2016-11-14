@@ -1,8 +1,11 @@
 package lanou.carhometwo.choosecar;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.view.View;
+import android.widget.ImageView;
 
 import java.util.ArrayList;
 
@@ -10,6 +13,7 @@ import lanou.carhometwo.R;
 import lanou.carhometwo.base.BaseFragment;
 import lanou.carhometwo.choosecar.newcar.NewCarFragment;
 import lanou.carhometwo.choosecar.usedcar.UsedCarFragment;
+import lanou.carhometwo.search.SearchActivity;
 
 /**
  * Created by dllo on 16/10/21.
@@ -37,8 +41,17 @@ public class ChooseCarFragment extends BaseFragment {
 
     @Override
     protected void initView() {
+
         viewPager = bindView(R.id.vp_choose_car);
         tabLayout = bindView(R.id.tl_choose_car);
+        ImageView imageView =bindView(R.id.iv_choose_car_search);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

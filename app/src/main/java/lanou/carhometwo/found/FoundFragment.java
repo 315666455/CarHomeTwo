@@ -1,5 +1,6 @@
 package lanou.carhometwo.found;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -28,6 +29,7 @@ import lanou.carhometwo.internet.GsonRequest;
 import lanou.carhometwo.internet.URLValues;
 import lanou.carhometwo.internet.VolleySingleton;
 import lanou.carhometwo.recommended.childrecommend.BannerAdapter;
+import lanou.carhometwo.search.SearchActivity;
 
 /**
  * Created by dllo on 16/10/21.
@@ -79,7 +81,6 @@ public class FoundFragment extends BaseFragment {
 
                     @Override
                     public void onResponse(FoundBean response) {
-
 
                         FoundLastAdapter foundLastAdapter = new FoundLastAdapter();
                         foundLastAdapter.setFoundBean(response);
@@ -162,6 +163,14 @@ public class FoundFragment extends BaseFragment {
         imageViewActionTwo = bindView(viewHead, R.id.iv_found_action_two);
         imageViewActionThree = bindView(viewHead, R.id.iv_found_action_three);
         imageViewLast = bindView(viewHead, R.id.iv_found_last);
+        ImageView imageViewSearch =bindView(R.id.iv_find_search);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

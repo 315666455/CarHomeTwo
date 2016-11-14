@@ -119,16 +119,16 @@ public class RecommendedChildFragment extends BaseFragment {
 
         VolleySingleton.getInstance().addRequest(gsonRequest);
 
-
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-
-                RefreshAs refreshAs = new RefreshAs();
-                refreshAs.execute();
-                reAdapter.notifyDataSetChanged();
-            }
-        });
+//
+//        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//
+//                RefreshAs refreshAs = new RefreshAs();
+//                refreshAs.execute();
+//                reAdapter.notifyDataSetChanged();
+//            }
+//        });
 
         lvRecommendedChild.addOnScrollListener(new EndLessOnScrollLisener(manager) {
 
@@ -155,7 +155,6 @@ public class RecommendedChildFragment extends BaseFragment {
     @Override
     protected void initView() {
 
-        swipeRefreshLayout = bindView(R.id.sr_recommend_child);
         lvRecommendedChild = bindView(R.id.lv_recommend_child);
         recyclerViewHeader = bindView(R.id.rv_head_recommend);
         lvRecommendedChild.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));

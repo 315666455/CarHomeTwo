@@ -14,6 +14,7 @@ import lanou.carhometwo.R;
 import lanou.carhometwo.base.BaseFragment;
 import lanou.carhometwo.internet.URLValues;
 import lanou.carhometwo.more.MoreActivity;
+import lanou.carhometwo.search.SearchActivity;
 
 
 public class RecommendedFragment extends BaseFragment implements View.OnClickListener {
@@ -22,6 +23,7 @@ public class RecommendedFragment extends BaseFragment implements View.OnClickLis
     private ViewPager vpRecommended;
     private ArrayList<String> arrayListUrl;
     private ImageView imageViewMenu;
+    private ImageView imageViewSearch;
 
     @Override
     protected void initData() {
@@ -50,11 +52,12 @@ public class RecommendedFragment extends BaseFragment implements View.OnClickLis
 
     @Override
     protected void initView() {
-
+        imageViewSearch = bindView(R.id.iv_recommend_search);
         imageViewMenu = bindView(R.id.iv_recommend_menu);
         vpRecommended = bindView(R.id.vp_recommeded);
         tlRecommended = bindView(R.id.tl_recommend);
         imageViewMenu.setOnClickListener(this);
+        imageViewSearch.setOnClickListener(this);
     }
 
     @Override
@@ -70,12 +73,16 @@ public class RecommendedFragment extends BaseFragment implements View.OnClickLis
                 startActivity(intent);
                 break;
 
+            case R.id.iv_recommend_search:
+                Intent intent1 = new Intent(getActivity(), SearchActivity.class);
+                startActivity(intent1);
+                break;
+
+
         }
 
 
     }
-
-
 
 
 }

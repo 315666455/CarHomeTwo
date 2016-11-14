@@ -11,90 +11,85 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import lanou.carhometwo.base.MyApp;
-import lanou.carhometwo.internet.VolleySingleton;
+import lanou.carhometwo.search.SearchCarNameBean;
 
 /**
  * Created by dllo on 16/11/8.
  */
 public class LiteOrmSingleton {
+    //饿汉单例,,没有办法在构造方法里传值
+    //懒汉单例,可以在构造里传值
+    private static LiteOrmSingleton base = new LiteOrmSingleton();
+    private LiteOrm mLiteOrm;  //初始化的时候一般都要写在单例里 不然会提示关闭之前数据库或者出奇怪的问题
+    private Handler mHandler;//用来做线程之间的切换的
+    private Executor mExecutorPool;//线程池
 
-    private static LiteOrmSingleton liteOrmSingleton;
-    private Handler handler;
-    private LiteOrm orm;
-    private Executor executor;
-
-    public LiteOrmSingleton() {
-        orm = LiteOrm.newCascadeInstance(MyApp.getContext(), "carHome.db");
-        int cpuMore = Runtime.getRuntime().availableProcessors();
-        executor = Executors.newFixedThreadPool(cpuMore + 1);
-        handler = new Handler(Looper.getMainLooper());
+    private LiteOrmSingleton() {
+        mLiteOrm = LiteOrm.newCascadeInstance(MyApp.getContext(), "carHome.db");
+        mHandler = new Handler(Looper.getMainLooper());
+        int coreNum = Runtime.getRuntime().availableProcessors();
+        mExecutorPool = Executors.newFixedThreadPool(coreNum + 1);
     }
 
-    //插入数据库
-    public <T> void liteInsert(final List<T> T) {
+    public static LiteOrmSingleton getIntstance() {
+        return base;
+    }
+
+    public <T> void insertData(final List<T> t) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                orm.insert(T);
+                mLiteOrm.insert(t);
             }
         }).start();
     }
 
-    //查询数据库
-    public <T> void liteQueryDate(OnQueryListenerAll<T> onQueryListenerAll, Class<T> tClass) {
-        executor.execute(new QueryRunnable<T>(onQueryListenerAll, tClass));
-    }
-
-    //将插入数据库操作转给子线程
-    class QueryRunnable<T> implements Runnable {
-
-        private OnQueryListenerAll<T> onQueryListenerAll;
-        private Class<T> tClass;
-
-        public QueryRunnable(OnQueryListenerAll<T> onQueryListenerAll, Class<T> tClass) {
-            this.onQueryListenerAll = onQueryListenerAll;
-            this.tClass = tClass;
-        }
-
-        @Override
-        public void run() {
-            ArrayList<T> query = orm.query(tClass);
-            handler.post(new CallBackRunnable<>(onQueryListenerAll, query));
-        }
-    }
-
-    //线程锁
-    public static LiteOrmSingleton getInstance() {
-        if (liteOrmSingleton == null) {
-            synchronized (VolleySingleton.class) {
-                if (liteOrmSingleton == null) {
-                    liteOrmSingleton = new LiteOrmSingleton();
-                }
+    public void deleteAllData() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mLiteOrm.delete(SearchCarNameBean.class);
             }
-        }
-        return liteOrmSingleton;
+        }).start();
     }
 
-    //将查询出来的数据创给子线程
+    public <T> void queryAllData(OnQueryListenerAll<T> monQueryListener, Class<T> tClass) {
+        mExecutorPool.execute(new QueryRunnable(monQueryListener, tClass));
+    }
+
     class CallBackRunnable<T> implements Runnable {
-        private OnQueryListenerAll<T> onQueryListenerAll;
+
+        OnQueryListenerAll<T> mOnQueryListener;
         List<T> tList;
 
-        public CallBackRunnable(OnQueryListenerAll<T> onQueryListenerAll, List<T> tList) {
-            this.onQueryListenerAll = onQueryListenerAll;
+        public CallBackRunnable(OnQueryListenerAll<T> mOnQueryListener, List<T> tList) {
+            this.mOnQueryListener = mOnQueryListener;
             this.tList = tList;
         }
 
         @Override
         public void run() {
-            onQueryListenerAll.onQuery(tList);
+            mOnQueryListener.onQuery(tList);
         }
     }
 
+    class QueryRunnable<T> implements Runnable {
+        private OnQueryListenerAll<T> mOnQueryListener;
+        private Class<T> tClass;
 
-    //创建接口
-    public interface OnQueryListenerAll<T> {
-        void onQuery(List<T> T);
+        public QueryRunnable(OnQueryListenerAll<T> mOnQueryListener, Class<T> tClass) {
+            this.mOnQueryListener = mOnQueryListener;
+            this.tClass = tClass;
+        }
+
+        @Override
+        public void run() {
+            ArrayList<T> query = mLiteOrm.query(tClass);
+            mHandler.post(new CallBackRunnable(mOnQueryListener, query));
+        }
     }
 
+    public interface OnQueryListenerAll<T> {
+        void onQuery(List<T> tList);
+    }
 }

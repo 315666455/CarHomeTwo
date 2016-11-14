@@ -58,8 +58,9 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                     @Override
                     public void done(LoginUser myUser, BmobException e) {
                         if (e == null) {
+
                             String s = editTextTelephone.getText().toString();
-//                            loginSuccessChangeListerner.setText(s);
+
                             TestBean testBean = new TestBean();
                             testBean.setText(s);
                             EventBus.getDefault().post(testBean);
@@ -67,7 +68,6 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                             Toast.makeText(LoginActivity.this, "登录成功", Toast.LENGTH_SHORT).show();
                             Log.d("MainActivity", "登录成功");
                             finish();
-
                         } else {
                             Toast.makeText(LoginActivity.this, "用户名或密码不正确", Toast.LENGTH_SHORT).show();
                             Log.d("MainActivity", e.getMessage());
