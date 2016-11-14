@@ -14,15 +14,18 @@ import tools.CommonViewHolder;
 public class FoundLastAdapter extends BaseAdapter {
 
     FoundBean foundBean;
+    int num;
 
     @Override
     public int getCount() {
-        return foundBean == null ? 0 : foundBean.getResult().getCardlist().get(10).getData().size();
+        num = foundBean.getResult().getCardlist().size();
+        return foundBean == null ? 0 : foundBean.getResult().getCardlist().get(num - 1).getData().size();
     }
 
     @Override
     public Object getItem(int i) {
-        return foundBean.getResult().getCardlist().get(10).getData().get(i);
+
+        return foundBean.getResult().getCardlist().get(num - 1).getData().get(i);
     }
 
     @Override
@@ -37,10 +40,10 @@ public class FoundLastAdapter extends BaseAdapter {
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
         CommonViewHolder commonViewHolder = CommonViewHolder.getViewHolder(view, viewGroup, R.layout.lv_found_item);
-        commonViewHolder.setImage(R.id.iv_found_last_lv_item,  foundBean.getResult().getCardlist().get(10).getData().get(i).getLogo());
-        commonViewHolder.setText(R.id.tv_found_lv_item_title,  foundBean.getResult().getCardlist().get(10).getData().get(i).getTitle());
-        commonViewHolder.setText(R.id.tv_found_lv_item_adinfo, foundBean.getResult().getCardlist().get(10).getData().get(i).getState());
-        commonViewHolder.setText(R.id.tv_found_lv_item_price, foundBean.getResult().getCardlist().get(10).getData().get(i).getPrice());
+        commonViewHolder.setImage(R.id.iv_found_last_lv_item, foundBean.getResult().getCardlist().get(num - 1).getData().get(i).getLogo());
+        commonViewHolder.setText(R.id.tv_found_lv_item_title, foundBean.getResult().getCardlist().get(num - 1).getData().get(i).getTitle());
+        commonViewHolder.setText(R.id.tv_found_lv_item_adinfo, foundBean.getResult().getCardlist().get(num - 1).getData().get(i).getState());
+        commonViewHolder.setText(R.id.tv_found_lv_item_price, foundBean.getResult().getCardlist().get(num - 1).getData().get(i).getPrice());
         return commonViewHolder.getItemView();
     }
 }

@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -75,6 +76,31 @@ public class FoundFragment extends BaseFragment {
     }
 
     @Override
+    protected void initView() {
+        listView = bindView(R.id.lv_found_last);
+        viewHead = LayoutInflater.from(getActivity()).inflate(R.layout.found_headview, null);
+        viewPager = bindView(viewHead, R.id.vp_found_wheel);
+        linearLayout = bindView(viewHead, R.id.ll_found_wheel);
+        recyclerView = bindView(viewHead, R.id.rv_found_ten);
+
+        rvTimeLimit = bindView(viewHead, R.id.rv_time_limit);
+
+        imageViewActionOne = bindView(viewHead, R.id.iv_found_action_one);
+        imageViewActionTwo = bindView(viewHead, R.id.iv_found_action_two);
+        imageViewActionThree = bindView(viewHead, R.id.iv_found_action_three);
+        imageViewLast = bindView(viewHead, R.id.iv_found_last);
+        ImageView imageViewSearch = bindView(R.id.iv_find_search);
+        imageViewSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), SearchActivity.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+
+    @Override
     protected void initData() {
         GsonRequest<FoundBean> gsonRequest = new GsonRequest<FoundBean>
                 (FoundBean.class, foundUrl, new Response.Listener<FoundBean>() {
@@ -82,30 +108,35 @@ public class FoundFragment extends BaseFragment {
                     @Override
                     public void onResponse(FoundBean response) {
 
+                        //商品列表
                         FoundLastAdapter foundLastAdapter = new FoundLastAdapter();
                         foundLastAdapter.setFoundBean(response);
                         listView.setAdapter(foundLastAdapter);
 
-                        FoundSixAdapter foundSixAdapter = new FoundSixAdapter();
-                        foundSixAdapter.setFoundBean(response);
-                        rvSix.setAdapter(foundSixAdapter);
 
-                        GridLayoutManager sixManager = new GridLayoutManager(context, 3, GridLayoutManager.HORIZONTAL, false);
-                        rvSix.setLayoutManager(sixManager);
+                        //活动专区
+                        for (int i = 0; i < response.getResult().getCardlist().size(); i++) {
+                            if (response.getResult().getCardlist().get(i).getDescription().equals("活动专区")) {
+                                Picasso.with(getActivity()).load(response.getResult().getCardlist().get(i).getData().get(0).getImageurl()).into(imageViewActionOne);
+                                Picasso.with(getActivity()).load(response.getResult().getCardlist().get(i).getData().get(1).getImageurl()).into(imageViewActionTwo);
+                                Picasso.with(getActivity()).load(response.getResult().getCardlist().get(i).getData().get(2).getImageurl()).into(imageViewActionThree);
+                            }
+                        }
 
-                        Picasso.with(getActivity()).load(response.getResult().getCardlist().get(3).getData().get(0).getImageurl()).into(imageView);
-                        Picasso.with(getActivity()).load(response.getResult().getCardlist().get(6).getData().get(0).getImageurl()).into(imageViewTwo);
-                        Picasso.with(getActivity()).load(response.getResult().getCardlist().get(7).getData().get(0).getImageurl()).into(imageViewActionOne);
-                        Picasso.with(getActivity()).load(response.getResult().getCardlist().get(7).getData().get(1).getImageurl()).into(imageViewActionTwo);
-                        Picasso.with(getActivity()).load(response.getResult().getCardlist().get(7).getData().get(2).getImageurl()).into(imageViewActionThree);
-                        Picasso.with(getActivity()).load(response.getResult().getCardlist().get(8).getData().get(0).getImageurl()).into(imageViewLast);
 
-                        FoundTimeLimitAdapter foundTimeLimitAdapter = new FoundTimeLimitAdapter();
-                        foundTimeLimitAdapter.setFoundBean(response);
-                        rvTimeLimit.setAdapter(foundTimeLimitAdapter);
+                        //限时抢购
+                        for (int i = 0; i < response.getResult().getCardlist().size(); i++) {
+                            if (response.getResult().getCardlist().get(i).getDescription().equals("限时抢购")) {
+                                FoundTimeLimitAdapter foundTimeLimitAdapter = new FoundTimeLimitAdapter();
+                                foundTimeLimitAdapter.setFoundBean(response);
+                                Log.d("1313", "i:" + i);
+                                foundTimeLimitAdapter.setNum(i);
+                                rvTimeLimit.setAdapter(foundTimeLimitAdapter);
+                                GridLayoutManager timeLimitManager = new GridLayoutManager(getActivity(), 1, GridLayoutManager.HORIZONTAL, false);
+                                rvTimeLimit.setLayoutManager(timeLimitManager);
+                            }
+                        }
 
-                        GridLayoutManager timeLimitManager = new GridLayoutManager(getActivity(), 1, GridLayoutManager.HORIZONTAL, false);
-                        rvTimeLimit.setLayoutManager(timeLimitManager);
 
                         RecyclerViewTenAdapter tenAdapter = new RecyclerViewTenAdapter();
                         tenAdapter.setFoundBean(response);
@@ -148,30 +179,6 @@ public class FoundFragment extends BaseFragment {
         VolleySingleton.getInstance().addRequest(gsonRequest);
     }
 
-    @Override
-    protected void initView() {
-        listView = bindView(R.id.lv_found_last);
-        viewHead = LayoutInflater.from(getActivity()).inflate(R.layout.found_headview, null);
-        viewPager = bindView(viewHead, R.id.vp_found_wheel);
-        linearLayout = bindView(viewHead, R.id.ll_found_wheel);
-        recyclerView = bindView(viewHead, R.id.rv_found_ten);
-        imageView = bindView(viewHead, R.id.iv_found_three);
-        rvTimeLimit = bindView(viewHead, R.id.rv_time_limit);
-        rvSix = bindView(viewHead, R.id.rv_found_six);
-        imageViewTwo = bindView(viewHead, R.id.iv_found_two);
-        imageViewActionOne = bindView(viewHead, R.id.iv_found_action_one);
-        imageViewActionTwo = bindView(viewHead, R.id.iv_found_action_two);
-        imageViewActionThree = bindView(viewHead, R.id.iv_found_action_three);
-        imageViewLast = bindView(viewHead, R.id.iv_found_last);
-        ImageView imageViewSearch =bindView(R.id.iv_find_search);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getActivity(), SearchActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
 
     @Override
     protected int getLayout() {
@@ -212,5 +219,4 @@ public class FoundFragment extends BaseFragment {
             }
         }
     }
-
 }
