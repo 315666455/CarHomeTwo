@@ -14,12 +14,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
+import android.widget.Toast;
 
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.squareup.picasso.Picasso;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,12 +31,13 @@ import lanou.carhometwo.internet.GsonRequest;
 import lanou.carhometwo.internet.URLValues;
 import lanou.carhometwo.internet.VolleySingleton;
 import lanou.carhometwo.recommended.childrecommend.BannerAdapter;
+import lanou.carhometwo.refresh.MeiTuanListView;
 import lanou.carhometwo.search.SearchActivity;
 
 /**
  * Created by dllo on 16/10/21.
  */
-public class FoundFragment extends BaseFragment {
+public class FoundFragment extends BaseFragment implements MeiTuanListView.OnMeiTuanRefreshListener {
     private String foundUrl = URLValues.FIND_URL;
     private int wheelSize;
     private LinearLayout linearLayout;
@@ -56,8 +58,11 @@ public class FoundFragment extends BaseFragment {
     private ImageView imageViewActionTwo;
     private ImageView imageViewActionThree;
     private ImageView imageViewLast;
-    private ListView listView;
+    private MeiTuanListView listView;
     private View viewHead;
+    private final static int REFRESH_COMPLETE = 0;
+    private InterHandler mInterHandler = new InterHandler(this);
+    private FoundLastAdapter foundLastAdapter;
 
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
@@ -76,15 +81,54 @@ public class FoundFragment extends BaseFragment {
     }
 
     @Override
+    public void onRefresh() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1500);
+                    mInterHandler.sendEmptyMessage(REFRESH_COMPLETE);
+                    // TODO Auto-generated catch block
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+
+    private static class InterHandler extends Handler {
+        private WeakReference<FoundFragment> mActivity;
+
+        public InterHandler(FoundFragment activity) {
+            mActivity = new WeakReference<FoundFragment>(activity);
+        }
+
+        @Override
+        public void handleMessage(Message msg) {
+            final FoundFragment activity = mActivity.get();
+            if (activity != null) {
+                switch (msg.what) {
+                    case REFRESH_COMPLETE:
+                        Toast.makeText(activity.getActivity(), "刷新成功", Toast.LENGTH_SHORT).show();
+                        activity.listView.setOnRefreshComplete();
+                        activity.foundLastAdapter.notifyDataSetChanged();
+                        activity.listView.setSelection(0);
+                        break;
+                }
+            } else {
+                super.handleMessage(msg);
+            }
+        }
+    }
+
+    @Override
     protected void initView() {
         listView = bindView(R.id.lv_found_last);
         viewHead = LayoutInflater.from(getActivity()).inflate(R.layout.found_headview, null);
         viewPager = bindView(viewHead, R.id.vp_found_wheel);
         linearLayout = bindView(viewHead, R.id.ll_found_wheel);
         recyclerView = bindView(viewHead, R.id.rv_found_ten);
-
         rvTimeLimit = bindView(viewHead, R.id.rv_time_limit);
-
         imageViewActionOne = bindView(viewHead, R.id.iv_found_action_one);
         imageViewActionTwo = bindView(viewHead, R.id.iv_found_action_two);
         imageViewActionThree = bindView(viewHead, R.id.iv_found_action_three);
@@ -97,6 +141,7 @@ public class FoundFragment extends BaseFragment {
                 startActivity(intent);
             }
         });
+        listView.setOnMeiTuanRefreshListener(this);
     }
 
 
@@ -109,10 +154,9 @@ public class FoundFragment extends BaseFragment {
                     public void onResponse(FoundBean response) {
 
                         //商品列表
-                        FoundLastAdapter foundLastAdapter = new FoundLastAdapter();
+                        foundLastAdapter = new FoundLastAdapter();
                         foundLastAdapter.setFoundBean(response);
                         listView.setAdapter(foundLastAdapter);
-
 
                         //活动专区
                         for (int i = 0; i < response.getResult().getCardlist().size(); i++) {
@@ -122,7 +166,6 @@ public class FoundFragment extends BaseFragment {
                                 Picasso.with(getActivity()).load(response.getResult().getCardlist().get(i).getData().get(2).getImageurl()).into(imageViewActionThree);
                             }
                         }
-
 
                         //限时抢购
                         for (int i = 0; i < response.getResult().getCardlist().size(); i++) {
@@ -136,7 +179,6 @@ public class FoundFragment extends BaseFragment {
                                 rvTimeLimit.setLayoutManager(timeLimitManager);
                             }
                         }
-
 
                         RecyclerViewTenAdapter tenAdapter = new RecyclerViewTenAdapter();
                         tenAdapter.setFoundBean(response);

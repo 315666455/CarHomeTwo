@@ -46,6 +46,8 @@ public class SearchActivity extends BaseActivity implements TextWatcher, View.On
     protected void initViews() {
         editTextSearch = bindView(R.id.et_search);
         editTextSearch.addTextChangedListener(this);
+
+
         classListview = bindView(R.id.lv_search_class);
         historyListView = bindView(R.id.lv_history);
         linearLayoutHistory = bindView(R.id.ll_history_delete_all);
@@ -107,9 +109,9 @@ public class SearchActivity extends BaseActivity implements TextWatcher, View.On
     }
 
     @Override
-    public void afterTextChanged(Editable editable) {
+    public void afterTextChanged(Editable s) {
         historyListView.setVisibility(View.GONE);
-        innitRequestInternet(editable);
+        innitRequestInternet(s);
     }
 
     private void innitRequestInternet(Editable s) {
@@ -122,6 +124,7 @@ public class SearchActivity extends BaseActivity implements TextWatcher, View.On
                     searchAdapter = new SearchAdapter(SearchActivity.this);
                     searchAdapter.setBean(response);
                     classListview.setAdapter(searchAdapter);
+
                     classListviewClicklisener(response);
 
                 }
@@ -139,10 +142,15 @@ public class SearchActivity extends BaseActivity implements TextWatcher, View.On
         classListview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 linearLayoutHistory.setVisibility(View.GONE);
+
                 ArrayList<SearchCarNameBean> beanArrayList = new ArrayList<SearchCarNameBean>();
+
                 String str = EncodeUtil.encode(response.getResult().getWordlist().get(position).getName());
+
                 String searchUrl = "http://sou.m.autohome.com.cn/h5/1.1/search.html?type=0&keyword=" + str + "&night=0&bbsid=0&lng=121.550912&lat=38.889734&nettype=5&netprovider=0";
+
                 editTextSearch.setText(response.getResult().getWordlist().get(position).getName());
 
                 SearchCarNameBean bean = new SearchCarNameBean();
@@ -150,6 +158,7 @@ public class SearchActivity extends BaseActivity implements TextWatcher, View.On
                 beanArrayList.add(bean);
 
                 LiteOrmSingleton.getIntstance().insertData(beanArrayList);
+
                 webView.setVisibility(View.VISIBLE);
                 webView.loadUrl(searchUrl);
             }

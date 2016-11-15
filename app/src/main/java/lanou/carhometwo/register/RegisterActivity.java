@@ -1,6 +1,5 @@
 package lanou.carhometwo.register;
 
-import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
@@ -12,7 +11,6 @@ import cn.bmob.v3.exception.BmobException;
 import cn.bmob.v3.listener.SaveListener;
 import lanou.carhometwo.R;
 import lanou.carhometwo.base.BaseActivity;
-import lanou.carhometwo.login.LoginActivity;
 
 public class RegisterActivity extends BaseActivity implements View.OnClickListener {
 
@@ -52,8 +50,6 @@ public class RegisterActivity extends BaseActivity implements View.OnClickListen
                     public void done(BmobUser bmobUser, BmobException e) {
                         if (e == null) {
                             Toast.makeText(RegisterActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                            startActivity(intent);
                             finish();
                         } else {
                             Log.d("444", e.getMessage());
