@@ -6,9 +6,12 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.RadioButton;
 
+import java.util.ArrayList;
+
 import lanou.carhometwo.R;
 import lanou.carhometwo.base.BaseActivity;
 import lanou.carhometwo.bbs.BbsFragment;
+import lanou.carhometwo.bean.MoreBean;
 import lanou.carhometwo.choosecar.ChooseCarFragment;
 import lanou.carhometwo.found.FoundFragment;
 import lanou.carhometwo.personal.PersonalFragment;
@@ -16,13 +19,14 @@ import lanou.carhometwo.recommended.RecommendedFragment;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener {
 
-    FrameLayout fl_main;
-    RadioButton rbRecommended;
-    RadioButton rbBbs;
-    RadioButton rbChooseCar;
-    RadioButton rbFound;
-    RadioButton rbPersonal;
+    private FrameLayout fl_main;
+    private RadioButton rbRecommended;
+    private RadioButton rbBbs;
+    private RadioButton rbChooseCar;
+    private RadioButton rbFound;
+    private RadioButton rbPersonal;
     private FragmentTransaction transaction;
+    private ArrayList<MoreBean> arrayList1;
 
     @Override
     protected int getLayout() {
@@ -42,6 +46,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         setClick(this, rbChooseCar);
         setClick(this, rbFound);
         setClick(this, rbPersonal);
+
     }
 
     @Override

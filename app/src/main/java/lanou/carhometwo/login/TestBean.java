@@ -4,7 +4,7 @@ package lanou.carhometwo.login;
  * Created by dllo on 16/11/11.
  */
 public class TestBean {
-
+    
     String text;
 
     public String getText() {

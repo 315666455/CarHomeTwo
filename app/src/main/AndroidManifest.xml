@@ -25,6 +25,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".main.MainActivity">
+
+        </activity>
+        <activity
+            android:name=".welcomepage.FirstActivity"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -32,9 +37,26 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".welcomepage.FirstActivity"
-            android:launchMode="singleTop" >
+            android:name="com.mob.tools.MobUIShell"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:windowSoftInputMode="stateHidden|adjustResize">
+            <intent-filter>
+                <data android:scheme="tencent100371282" />
 
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+
+            <!-- 调用新浪原生SDK，需要注册的回调activity -->
+            <intent-filter>
+                <action android:name="com.sina.weibo.sdk.action.ACTION_SDK_REQ_ACTIVITY" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".login.LoginActivity"
@@ -45,9 +67,10 @@
         <activity
             android:name=".more.MoreActivity"
             android:launchMode="singleTop" />
-        <activity android:name=".search.SearchActivity"
-            android:launchMode="singleTask"
-            />
+        <activity
+            android:name=".search.SearchActivity"
+            android:launchMode="singleTask" />
+        <activity android:name=".main.SecondActivity"></activity>
     </application>
 
 </manifest>

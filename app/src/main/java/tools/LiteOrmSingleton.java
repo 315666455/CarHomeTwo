@@ -11,18 +11,18 @@ import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
 import lanou.carhometwo.base.MyApp;
+import lanou.carhometwo.bean.MoreBean;
 import lanou.carhometwo.search.SearchCarNameBean;
 
 /**
  * Created by dllo on 16/11/8.
  */
 public class LiteOrmSingleton {
-    //饿汉单例,,没有办法在构造方法里传值
-    //懒汉单例,可以在构造里传值
+
     private static LiteOrmSingleton base = new LiteOrmSingleton();
-    private LiteOrm mLiteOrm;  //初始化的时候一般都要写在单例里 不然会提示关闭之前数据库或者出奇怪的问题
-    private Handler mHandler;//用来做线程之间的切换的
-    private Executor mExecutorPool;//线程池
+    private LiteOrm mLiteOrm;
+    private Handler mHandler;
+    private Executor mExecutorPool;
 
     private LiteOrmSingleton() {
         mLiteOrm = LiteOrm.newCascadeInstance(MyApp.getContext(), "carHome.db");
@@ -49,9 +49,31 @@ public class LiteOrmSingleton {
             @Override
             public void run() {
                 mLiteOrm.delete(SearchCarNameBean.class);
+
             }
         }).start();
     }
+
+    public void deleteMoreData() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mLiteOrm.delete(MoreBean.class);
+
+            }
+        }).start();
+    }
+
+
+    public void upDate(ArrayList<MoreBean> arrayList) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                mLiteOrm.update(MoreBean.class);
+            }
+        }).start();
+    }
+
 
     public <T> void queryAllData(OnQueryListenerAll<T> monQueryListener, Class<T> tClass) {
         mExecutorPool.execute(new QueryRunnable(monQueryListener, tClass));

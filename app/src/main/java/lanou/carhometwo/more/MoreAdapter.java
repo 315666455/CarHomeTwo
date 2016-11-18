@@ -14,11 +14,13 @@ import java.util.Collections;
 
 import lanou.carhometwo.R;
 import lanou.carhometwo.bean.MoreBean;
+import tools.LiteOrmSingleton;
 
 /**
  * Created by dllo on 16/11/9.
  */
 public class MoreAdapter extends RecyclerView.Adapter<MoreAdapter.MyViewHolder> {
+
 
     ArrayList<MoreBean> arrayList;
     Context context;
@@ -66,5 +68,6 @@ public class MoreAdapter extends RecyclerView.Adapter<MoreAdapter.MyViewHolder> 
     public void move(int from, int to) {
         Collections.swap(arrayList, from, to);
         notifyItemMoved(from, to);
+        LiteOrmSingleton.getIntstance().upDate(arrayList);
     }
 }

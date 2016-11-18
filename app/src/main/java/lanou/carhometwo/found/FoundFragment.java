@@ -9,7 +9,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
@@ -170,10 +169,11 @@ public class FoundFragment extends BaseFragment implements MeiTuanListView.OnMei
                         //限时抢购
                         for (int i = 0; i < response.getResult().getCardlist().size(); i++) {
                             if (response.getResult().getCardlist().get(i).getDescription().equals("限时抢购")) {
+
                                 FoundTimeLimitAdapter foundTimeLimitAdapter = new FoundTimeLimitAdapter();
                                 foundTimeLimitAdapter.setFoundBean(response);
-                                Log.d("1313", "i:" + i);
                                 foundTimeLimitAdapter.setNum(i);
+
                                 rvTimeLimit.setAdapter(foundTimeLimitAdapter);
                                 GridLayoutManager timeLimitManager = new GridLayoutManager(getActivity(), 1, GridLayoutManager.HORIZONTAL, false);
                                 rvTimeLimit.setLayoutManager(timeLimitManager);

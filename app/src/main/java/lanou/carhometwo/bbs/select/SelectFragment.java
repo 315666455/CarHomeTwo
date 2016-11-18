@@ -49,6 +49,4 @@ public class SelectFragment extends lanou.carhometwo.base.BaseFragment {
     protected int getLayout() {
         return R.layout.select_fragment;
     }
-
-
 }
